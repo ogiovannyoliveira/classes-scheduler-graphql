@@ -3,13 +3,11 @@ This is a personal project for student scheduling, with classes according his co
 
 
 ## How to run :rocket:
-<!-- - Basta construir as imagens com o docker-compose
-
+- Just run using `docker-compose`
 ```sh
   docker-compose -f docker-compose.dev.yml up -d --build
 ```
 
-ou manualmente: -->
 - Manually
 ```sh
   yarn start:dev
@@ -30,7 +28,7 @@ ou manualmente: -->
   - GraphQL
   - TypeORM
   - Docker
-  - PostgreSQL
+  - MySQL
 
 ## Database schema :camera:
 <img src=".github/assets/database-schema.png" alt="DB Schema">
