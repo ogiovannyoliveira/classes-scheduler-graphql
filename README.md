@@ -1,6 +1,6 @@
 # classes-scheduler-graphql
 This is a personal project for student scheduling, with classes according his course level.
-
+I intend to make just the backend, but I'm opened to work together with whoever wants to create the frontend part. 
 
 ## How to run :rocket:
 - Just run using `docker-compose`
