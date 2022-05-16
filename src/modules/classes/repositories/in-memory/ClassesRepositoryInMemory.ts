@@ -14,9 +14,9 @@ class ClassesRepositoryInMemory implements IClassesRepository {
     title,
     link,
   }: CreateClassInput): Promise<Class> {
-    const classes = new Class();
+    const classy = new Class();
 
-    Object.assign(classes, {
+    Object.assign(classy, {
       id: uuid(),
       teacher_id,
       minimum_level_id,
@@ -26,9 +26,9 @@ class ClassesRepositoryInMemory implements IClassesRepository {
       updated_at: null,
     });
 
-    this.classes.push(classes);
+    this.classes.push(classy);
 
-    return classes;
+    return classy;
   }
 }
 

@@ -1,7 +1,9 @@
-class CreateClassUseCase {
-  async execute(): Promise<boolean> {
-    return true;
-  }
-}
+type CreateClassType = {
+  minimum_level_id: string;
+  teacher_id: string;
+  title: string;
+  description?: string;
+  link: string;
+};
 
-export { CreateClassUseCase };
+export { CreateClassType };
