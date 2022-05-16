@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 import { Teacher } from '../../typeorm/entities/Teacher';
 
 @Resolver()
-class TeachersResolver {  
+class TeachersResolver {
   @Query(() => [Teacher])
   teachers(): Teacher[] {
     return [
@@ -15,9 +15,9 @@ class TeachersResolver {
         password: 'kadj30i-0sca9-q3=',
         created_at: new Date(),
         updated_at: null,
-      }
+      },
     ];
   }
 }
 
-export { TeachersResolver }
+export { TeachersResolver };

@@ -1,5 +1,11 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Field, ObjectType } from '@nestjs/graphql';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
 @ObjectType()
@@ -12,18 +18,18 @@ class Teacher {
   @Field()
   @Column()
   name: string;
-  
+
   @Field()
   @Column()
   email: string;
-  
+
   @Column()
   password: string;
-  
+
   @Field()
   @CreateDateColumn()
   created_at: Date;
-  
+
   @Field()
   @UpdateDateColumn()
   updated_at?: Date;

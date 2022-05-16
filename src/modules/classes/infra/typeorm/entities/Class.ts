@@ -1,6 +1,12 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { v4 as uuid } from 'uuid';
 import { Field, ObjectType } from '@nestjs/graphql';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { v4 as uuid } from 'uuid';
 
 import { Teacher } from '~modules/teachers/infra/typeorm/entities/Teacher';
 
@@ -14,11 +20,11 @@ class Class {
   @Field()
   @Column()
   minimum_level_id: string;
-  
+
   @Field()
   @Column()
   teacher_id: string;
-  
+
   @Field()
   @Column()
   title: string;
@@ -30,11 +36,11 @@ class Class {
   @Field()
   @Column()
   link: string;
-  
+
   @Field()
   @CreateDateColumn()
   created_at: Date;
-  
+
   @Field()
   @UpdateDateColumn()
   updated_at?: Date;

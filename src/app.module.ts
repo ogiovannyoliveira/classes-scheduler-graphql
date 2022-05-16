@@ -1,12 +1,12 @@
-import { join } from 'path';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { join } from 'path';
 
-import { TeachersModule } from '~modules/teachers/Teachers.module';
 import { ClassesModule } from '~modules/classes/Classes.module';
+import { TeachersModule } from '~modules/teachers/Teachers.module';
 
 import databaseConfig from './shared/infra/typeorm';
 

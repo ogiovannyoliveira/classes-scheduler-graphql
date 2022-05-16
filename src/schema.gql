@@ -29,5 +29,16 @@ type Class {
 
 type Query {
   teachers: [Teacher!]!
-  classes: [Class!]!
+}
+
+type Mutation {
+  createClass(input: CreateClassInput!): Class!
+}
+
+input CreateClassInput {
+  minimum_level_id: String!
+  teacher_id: String!
+  title: String!
+  description: String
+  link: String!
 }
