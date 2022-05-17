@@ -1,5 +1,7 @@
+import { Level } from '../infra/typeorm/entities/Level';
+
 interface ILevelsRepository {
-  findById(): Promise<boolean>;
+  findById(id: string): Promise<Level>;
 }
 
 export { ILevelsRepository };
