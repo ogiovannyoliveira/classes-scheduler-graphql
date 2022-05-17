@@ -1,4 +1,3 @@
-import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   CreateDateColumn,
@@ -8,46 +7,33 @@ import {
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
-import { Teacher } from '~modules/teachers/infra/typeorm/entities/Teacher';
+import { AbstractClass } from '../../abstracts/Class';
 
-@ObjectType()
 @Entity({ name: 'classes' })
-class Class {
-  @Field()
+class Class implements AbstractClass {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Field()
   @Column()
   minimum_level_id: string;
 
-  @Field()
   @Column()
   teacher_id: string;
 
-  @Field()
   @Column()
   title: string;
 
-  @Field({ nullable: true })
   @Column({ nullable: true })
   description?: string;
 
-  @Field()
   @Column()
   link: string;
 
-  @Field()
   @CreateDateColumn()
   created_at: Date;
 
-  @Field({ nullable: true })
   @UpdateDateColumn()
   updated_at?: Date;
-
-  /** related columns */
-  @Field(() => Teacher)
-  teacher?: Teacher;
 
   constructor() {
     this.id ||= uuid();

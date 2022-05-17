@@ -2,15 +2,17 @@ import { Args, Mutation, Resolver } from '@nestjs/graphql';
 
 import { CreateClassUseCase } from '~modules/classes/useCases/createClass/CreateClass.useCase';
 
-import { Class } from '../../typeorm/entities/Class';
 import { CreateClassInput } from '../inputs/CreateClass.input';
+import { ClassInterface } from '../interfaces/ClassInterface';
 
 @Resolver()
 class ClassesResolver {
   constructor(private createClassUseCase: CreateClassUseCase) {}
 
-  @Mutation(() => Class)
-  async createClass(@Args('input') input: CreateClassInput): Promise<Class> {
+  @Mutation(() => ClassInterface)
+  async createClass(
+    @Args('input') input: CreateClassInput,
+  ): Promise<ClassInterface> {
     const classy = await this.createClassUseCase.execute(input);
 
     return classy;

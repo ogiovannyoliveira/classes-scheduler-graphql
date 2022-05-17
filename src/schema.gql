@@ -15,7 +15,7 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type Class {
+type ClassInterface {
   id: String!
   minimum_level_id: String!
   teacher_id: String!
@@ -27,7 +27,7 @@ type Class {
   teacher: Teacher!
 }
 
-type Level {
+type LevelInterface {
   id: String!
   ordering: Float!
   name: String!
@@ -37,11 +37,11 @@ type Level {
 
 type Query {
   teachers: [Teacher!]!
-  levels: [Level!]!
+  levels: [LevelInterface!]!
 }
 
 type Mutation {
-  createClass(input: CreateClassInput!): Class!
+  createClass(input: CreateClassInput!): ClassInterface!
 }
 
 input CreateClassInput {

@@ -1,12 +1,12 @@
 import { Resolver, Query } from '@nestjs/graphql';
 import { v4 as uuid } from 'uuid';
 
-import { Level } from '../../typeorm/entities/Level';
+import { LevelInterface } from '../interfaces/LevelInterface';
 
 @Resolver()
 class LevelsResolver {
-  @Query(() => [Level])
-  levels(): Level[] {
+  @Query(() => [LevelInterface])
+  levels(): LevelInterface[] {
     return [
       {
         id: uuid(),

@@ -1,4 +1,3 @@
-import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   CreateDateColumn,
@@ -8,26 +7,22 @@ import {
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
-@ObjectType()
+import { AbstractLevel } from '../../abstracts/Level';
+
 @Entity({ name: 'levels' })
-class Level {
-  @Field()
+class Level implements AbstractLevel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Field()
   @Column()
   ordering: number;
 
-  @Field()
   @Column()
   name: string;
 
-  @Field()
   @CreateDateColumn()
   created_at: Date;
 
-  @Field({ nullable: true })
   @UpdateDateColumn()
   updated_at?: Date;
 
