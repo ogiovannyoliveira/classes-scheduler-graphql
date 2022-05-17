@@ -28,7 +28,7 @@ I intend to make just the backend, but I'm opened to work together with whoever 
   - GraphQL
   - TypeORM
   - Docker
-  - MySQL
+  - PostgreSQL
 
 ## Database schema :camera:
 <img src=".github/assets/database-schema.png" alt="DB Schema">

@@ -1,19 +1,45 @@
 version: '3.7'
 
+volumes:
+  postgres-database:
+    driver: local
+
+networks:
+  classes-scheduler:
+    name: classes-scheduler-network
+
 services:
   database:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
+    build:
+      context: ./database
+      dockerfile: Dockerfile.dev
+    image: classes_scheduler/database
     container_name: classes-scheduler-database
+    restart: always
     ports:
-      - 3306:3306
+      - 5432:5432
     environment:
-      MYSQL_DATABASE: classes_scheduler
-      MYSQL_USER: developer
-      MYSQL_PASSWORD: dv1010aa
-      MYSQL_ROOT_PASSWORD: classesschedulerroot
+      - POSTGRES_USER=developer
+      - POSTGRES_PASSWORD=dv1010aa
+      - POSTGRES_DB=classes_scheduler
+    volumes:
+      - postgres-database:/data/postgres
     networks:
       - classes-scheduler
+
+  # database:
+  #   image: mysql
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   container_name: classes-scheduler-database
+  #   ports:
+  #     - 3306:3306
+  #   environment:
+  #     MYSQL_DATABASE: classes_scheduler
+  #     MYSQL_USER: developer
+  #     MYSQL_PASSWORD: dv1010aa
+  #     MYSQL_ROOT_PASSWORD: classesschedulerroot
+  #   networks:
+  #     - classes-scheduler
 
   # server:
   #   build:
@@ -26,11 +52,3 @@ services:
   #     - .:/usr/app
   #   networks:
   #     - classes-scheduler
-
-volumes:
-  data:
-    driver: local
-
-networks:
-  classes-scheduler:
-    name: classes-scheduler-network
