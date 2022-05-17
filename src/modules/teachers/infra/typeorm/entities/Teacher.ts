@@ -30,7 +30,7 @@ class Teacher {
   @CreateDateColumn()
   created_at: Date;
 
-  @Field()
+  @Field({ nullable: true })
   @UpdateDateColumn()
   updated_at?: Date;
 

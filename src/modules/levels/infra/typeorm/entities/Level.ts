@@ -8,34 +8,20 @@ import {
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
-import { Teacher } from '~modules/teachers/infra/typeorm/entities/Teacher';
-
 @ObjectType()
-@Entity({ name: 'classes' })
-class Class {
+@Entity({ name: 'levels' })
+class Level {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Field()
   @Column()
-  minimum_level_id: string;
+  ordering: number;
 
   @Field()
   @Column()
-  teacher_id: string;
-
-  @Field()
-  @Column()
-  title: string;
-
-  @Field({ nullable: true })
-  @Column({ nullable: true })
-  description?: string;
-
-  @Field()
-  @Column()
-  link: string;
+  name: string;
 
   @Field()
   @CreateDateColumn()
@@ -45,13 +31,9 @@ class Class {
   @UpdateDateColumn()
   updated_at?: Date;
 
-  /** related columns */
-  @Field(() => Teacher)
-  teacher?: Teacher;
-
   constructor() {
     this.id ||= uuid();
   }
 }
 
-export { Class };
+export { Level };

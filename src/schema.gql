@@ -7,7 +7,7 @@ type Teacher {
   name: String!
   email: String!
   created_at: DateTime!
-  updated_at: DateTime!
+  updated_at: DateTime
 }
 
 """
@@ -23,12 +23,21 @@ type Class {
   description: String
   link: String!
   created_at: DateTime!
-  updated_at: DateTime!
+  updated_at: DateTime
   teacher: Teacher!
+}
+
+type Level {
+  id: String!
+  ordering: Float!
+  name: String!
+  created_at: DateTime!
+  updated_at: DateTime
 }
 
 type Query {
   teachers: [Teacher!]!
+  levels: [Level!]!
 }
 
 type Mutation {
