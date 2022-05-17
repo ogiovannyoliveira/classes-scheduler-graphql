@@ -9,8 +9,8 @@ const host = process.env.DB_HOST;
 const database = process.env.DB_NAME;
 
 export default {
-  type: 'mysql',
-  port: 3306,
+  type: 'postgres',
+  port: 5432,
   host,
   username,
   password,

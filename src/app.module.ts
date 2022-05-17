@@ -16,7 +16,7 @@ import databaseConfig from './shared/infra/typeorm';
     TypeOrmModule.forRoot(databaseConfig),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      playground: process.env.SHOW_PLAYGROUND == 'true',
+      playground: process.env.SHOW_PLAYGROUND === 'true',
       autoSchemaFile: join(process.cwd(), 'src', 'schema.gql'),
     }),
     TeachersModule,
