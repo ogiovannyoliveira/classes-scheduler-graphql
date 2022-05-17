@@ -40,7 +40,7 @@ I intend to make just the backend, but I'm opened to work together with whoever 
 
   | N° | Name | OK |
   |----|-----------------------------------|----|
-  | 01 | A Teacher can create many classes | |
+  | 01 | A Teacher can create many classes | ✅ |
   | 02 | A Teacher can create many appointments to the classes | |
   | 03 | A Teacher cannot create more than one appointment at the same period (day and time) | |
   | 04 | A Teacher can see all appointments he made in a day | |

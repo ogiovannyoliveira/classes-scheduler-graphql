@@ -1,4 +1,3 @@
-import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -7,7 +6,6 @@ import { IClassesRepository } from '~modules/classes/repositories/IClassesReposi
 import { CreateClassInput } from '../../graphql/inputs/CreateClass.input';
 import { Class } from '../entities/Class';
 
-@Injectable()
 class ClassesRepository implements IClassesRepository {
   constructor(
     @InjectRepository(Class)
