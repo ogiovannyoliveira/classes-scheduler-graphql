@@ -1,21 +1,18 @@
-import { Resolver, Query } from '@nestjs/graphql';
-import { v4 as uuid } from 'uuid';
+import { Args, Query, Resolver } from '@nestjs/graphql';
+
+import { FindLevelByIdUseCase } from '~modules/levels/useCases/findLevelById/FindLevelById.useCase';
 
 import { LevelInterface } from '../interfaces/LevelInterface';
 
 @Resolver()
 class LevelsResolver {
-  @Query(() => [LevelInterface])
-  levels(): LevelInterface[] {
-    return [
-      {
-        id: uuid(),
-        ordering: 1,
-        name: 'Teacher Name',
-        created_at: new Date(),
-        updated_at: null,
-      },
-    ];
+  constructor(private findLevelByIdUseCase: FindLevelByIdUseCase) {}
+
+  @Query(() => LevelInterface)
+  async levelById(@Args('id') id: string): Promise<LevelInterface> {
+    const level = await this.findLevelByIdUseCase.execute(id);
+
+    return level;
   }
 }
 

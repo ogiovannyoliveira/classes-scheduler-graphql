@@ -37,7 +37,7 @@ type LevelInterface {
 
 type Query {
   teachers: [Teacher!]!
-  levels: [LevelInterface!]!
+  levelById(id: String!): LevelInterface!
 }
 
 type Mutation {
