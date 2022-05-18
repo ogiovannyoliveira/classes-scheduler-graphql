@@ -58,7 +58,7 @@ I intend to make just the backend, but I'm opened to work together with whoever 
 
   | FR N° | N° | Name | OK |
   |-------|----|----------------------------------|----|
-  |  01   | 01 | A Teacher must select a valid level to create a class | |
+  |  01   | 01 | A Teacher must select a valid level to create a class | ✅ |
   |  02   | 02 | An Appointment must have an start and finish times | |
   |  02   | 03 | An Appointment can be created only by a Teacher | |
   |  03   | 04 | A message must be shown saying that the period was already chosen | |
