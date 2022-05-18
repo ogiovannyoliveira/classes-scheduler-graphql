@@ -20,7 +20,7 @@ I intend to make just the backend, but I'm opened to work together with whoever 
 
 ## Endpoints API 📡
 ```md
-  Base URL: http://localhost:3333
+  Base URL and Playground: http://localhost:3333/graphql
 ```
 
 ## Tools :toolbox:
