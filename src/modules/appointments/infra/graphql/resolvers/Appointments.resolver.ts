@@ -1,11 +1,11 @@
-import { Query, Resolver } from '@nestjs/graphql';
+import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { v4 as uuid } from 'uuid';
 
 import { AppointmentInterface } from '../interfaces/AppointmentInterface';
 
 @Resolver()
 class AppointmentsResolver {
-  @Query(() => [AppointmentInterface])
+  @Mutation(() => [AppointmentInterface])
   appointments(): AppointmentInterface[] {
     return [
       {

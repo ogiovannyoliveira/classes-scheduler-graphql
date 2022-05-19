@@ -47,11 +47,11 @@ type LevelInterface {
 type Query {
   teachers: [Teacher!]!
   levelById(id: String!): LevelInterface!
-  appointments: [AppointmentInterface!]!
 }
 
 type Mutation {
   createClass(input: CreateClassInput!): ClassInterface!
+  appointments: [AppointmentInterface!]!
 }
 
 input CreateClassInput {
