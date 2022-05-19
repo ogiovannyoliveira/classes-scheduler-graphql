@@ -5,6 +5,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 
+import { AppointmentsModule } from '~modules/appointments/Appointments.module';
 import { ClassesModule } from '~modules/classes/Classes.module';
 import { LevelsModule } from '~modules/levels/Levels.module';
 import { TeachersModule } from '~modules/teachers/Teachers.module';
@@ -23,6 +24,7 @@ import databaseConfig from './shared/infra/typeorm';
     TeachersModule,
     ClassesModule,
     LevelsModule,
+    AppointmentsModule,
   ],
   controllers: [],
   providers: [],
