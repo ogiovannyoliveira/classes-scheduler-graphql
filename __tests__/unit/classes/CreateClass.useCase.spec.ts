@@ -44,7 +44,7 @@ describe('Create Class Use Case', () => {
     });
 
     await expect(sut).rejects.toEqual(
-      new NotFoundException('Level was found.'),
+      new NotFoundException('Level was not found.'),
     );
   });
 });
