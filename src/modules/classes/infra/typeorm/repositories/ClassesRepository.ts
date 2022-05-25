@@ -19,6 +19,15 @@ class ClassesRepository implements IClassesRepository {
 
     return classy;
   }
+
+  async existsById(id: string): Promise<boolean> {
+    const [{ exists }] = await this.repository.query(
+      'SELECT EXISTS(SELECT 1 FROM classes WHERE classes.id = $1)',
+      [id],
+    );
+
+    return exists;
+  }
 }
 
 export { ClassesRepository };

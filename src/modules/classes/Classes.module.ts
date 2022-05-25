@@ -25,5 +25,12 @@ import { CreateClassUseCase } from './useCases/createClass/CreateClass.useCase';
       useClass: LevelsRepositories,
     },
   ],
+  exports: [
+    {
+      provide: 'ClassesRepository',
+      inject: [ClassesRepository],
+      useClass: ClassesRepository,
+    },
+  ],
 })
 export class ClassesModule {}

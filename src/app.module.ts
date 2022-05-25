@@ -21,12 +21,11 @@ import databaseConfig from './shared/infra/typeorm';
       playground: process.env.SHOW_PLAYGROUND === 'true',
       autoSchemaFile: join(process.cwd(), 'src', 'schema.gql'),
     }),
+    // domain modules
     TeachersModule,
     ClassesModule,
     LevelsModule,
     AppointmentsModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
