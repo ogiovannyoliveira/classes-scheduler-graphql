@@ -41,7 +41,7 @@ I intend to make just the backend, but I'm opened to work together with whoever 
   | N° | Name | OK |
   |----|-----------------------------------|----|
   | 01 | A Teacher can create many classes | ✅ |
-  | 02 | A Teacher can create many appointments to the classes | ⌛ |
+  | 02 | A Teacher can create many appointments to the classes | ✅ |
   | 03 | A Teacher cannot create more than one appointment at the same period (day and time) | |
   | 04 | A Teacher can see all appointments he made in a day | |
   | 05 | A Teacher can see all appointments he made by a period of time | |
@@ -59,8 +59,9 @@ I intend to make just the backend, but I'm opened to work together with whoever 
   | FR N° | N° | Name | OK |
   |-------|----|----------------------------------|----|
   |  01   | 01 | A Teacher must select a valid level to create a class | ✅ |
-  |  02   | 02 | An Appointment must have an start and finish times | |
-  |  02   | 03 | The start time must be before than the finish one | |
+  |  02   | 02 | An Appointment must have an start and finish times | ✅ |
+  |  02   | 03 | The start time must be before than the finish one | ⌛ |
+  |  02   | 03 | A Teacher must select a valid class to create an appointment to it  | ⌛ |
   |  02   | 04 | An Appointment can be created only by a Teacher | |
   |  03   | 05 | A message must be shown saying that the period was already chosen | |
   |  03   | 06 | A new time can be suggested when the Teacher choose an used period | |
