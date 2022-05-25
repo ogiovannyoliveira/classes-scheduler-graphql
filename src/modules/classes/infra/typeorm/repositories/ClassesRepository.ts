@@ -13,9 +13,9 @@ class ClassesRepository implements IClassesRepository {
   ) {}
 
   async create(data: CreateClassInput): Promise<Class> {
-    const classy = this.repository.create(data);
+    const classyToCreate = this.repository.create(data);
 
-    this.repository.save(classy);
+    const classy = this.repository.save(classyToCreate);
 
     return classy;
   }
