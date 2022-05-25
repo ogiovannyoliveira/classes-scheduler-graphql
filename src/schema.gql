@@ -51,7 +51,7 @@ type Query {
 
 type Mutation {
   createClass(input: CreateClassInput!): ClassInterface!
-  appointments: [AppointmentInterface!]!
+  createAppointment(input: CreateAppointmentInput!): AppointmentInterface!
 }
 
 input CreateClassInput {
@@ -60,4 +60,10 @@ input CreateClassInput {
   title: String!
   description: String
   link: String!
+}
+
+input CreateAppointmentInput {
+  class_id: String!
+  starts_at: DateTime!
+  finishes_at: DateTime!
 }

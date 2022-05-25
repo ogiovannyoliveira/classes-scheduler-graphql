@@ -23,7 +23,7 @@ class Appointment implements AbstractAppointment {
   @Column()
   finishes_at: Date;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ default: () => 'NOW()' })
   created_at: Date;
 
   @UpdateDateColumn()

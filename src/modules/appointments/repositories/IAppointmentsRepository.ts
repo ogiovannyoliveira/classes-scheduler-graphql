@@ -1,5 +1,8 @@
+import { CreateAppointmentInput } from '../infra/graphql/inputs/CreateAppointment.input';
+import { Appointment } from '../infra/typeorm/entities/Appointment';
+
 interface IAppointmentsRepository {
-  create(): Promise<boolean>;
+  create(data: CreateAppointmentInput): Promise<Appointment>;
 }
 
 export { IAppointmentsRepository };
