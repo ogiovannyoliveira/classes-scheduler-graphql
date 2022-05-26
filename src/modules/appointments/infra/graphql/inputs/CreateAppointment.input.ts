@@ -6,6 +6,9 @@ class CreateAppointmentInput {
   class_id: string;
 
   @Field()
+  responsible_id: string;
+
+  @Field()
   starts_at: Date;
 
   @Field()

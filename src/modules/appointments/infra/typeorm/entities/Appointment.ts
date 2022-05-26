@@ -18,12 +18,15 @@ class Appointment implements AbstractAppointment {
   class_id: string;
 
   @Column()
+  responsible_id: string;
+
+  @Column()
   starts_at: Date;
 
   @Column()
   finishes_at: Date;
 
-  @CreateDateColumn({ default: () => 'NOW()' })
+  @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()

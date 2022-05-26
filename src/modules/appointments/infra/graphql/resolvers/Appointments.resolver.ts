@@ -16,8 +16,6 @@ class AppointmentsResolver {
   ): Promise<AppointmentInterface> {
     const appointment = await this.createAppointmentUseCase.execute(input);
 
-    console.log({ appointment });
-
     return appointment;
   }
 }

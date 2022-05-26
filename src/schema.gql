@@ -5,6 +5,7 @@
 type AppointmentInterface {
   id: String!
   class_id: String!
+  responsible_id: String!
   starts_at: DateTime!
   finishes_at: DateTime!
   created_at: DateTime!
@@ -64,6 +65,7 @@ input CreateClassInput {
 
 input CreateAppointmentInput {
   class_id: String!
+  responsible_id: String!
   starts_at: DateTime!
   finishes_at: DateTime!
 }

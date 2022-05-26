@@ -30,10 +30,12 @@ describe('Create Appointment Use Case', () => {
 
   it('should be able to create a new appointment', async () => {
     const validClassId = classesRepositoryInMemory.validId;
+    const validTeacherId = uuid();
     const now = new Date();
 
     const sut = await createAppointmentUseCase.execute({
       class_id: validClassId,
+      responsible_id: validTeacherId,
       starts_at: now,
       finishes_at: new Date(now.setHours(now.getHours() + 1)),
     });
@@ -44,12 +46,14 @@ describe('Create Appointment Use Case', () => {
 
   it('should not be able to create a new appointment if starting date is after ending date', async () => {
     const validClassId = classesRepositoryInMemory.validId;
+    const validResponsibleId = uuid();
     const now = new Date();
     const startingDate = new Date(now.setHours(2));
     const endingDate = new Date(now.setHours(1));
 
     const sut = createAppointmentUseCase.execute({
       class_id: validClassId,
+      responsible_id: validResponsibleId,
       starts_at: startingDate,
       finishes_at: endingDate,
     });
@@ -64,9 +68,11 @@ describe('Create Appointment Use Case', () => {
   it('should not be able to create a new appointment if an invalid class is provided', async () => {
     const now = new Date();
     const invalidClassId = uuid();
+    const validResponsibleId = uuid();
 
     const sut = createAppointmentUseCase.execute({
       class_id: invalidClassId,
+      responsible_id: validResponsibleId,
       starts_at: now,
       finishes_at: new Date(now.setHours(now.getHours() + 1)),
     });

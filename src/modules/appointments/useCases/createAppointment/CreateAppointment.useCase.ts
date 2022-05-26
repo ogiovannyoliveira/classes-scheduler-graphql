@@ -26,6 +26,7 @@ class CreateAppointmentUseCase {
 
   async execute({
     class_id,
+    responsible_id,
     starts_at,
     finishes_at,
   }: CreateAppointmentType): Promise<Appointment> {
@@ -33,8 +34,6 @@ class CreateAppointmentUseCase {
       starts_at,
       finishes_at,
     );
-
-    console.log({ starts_at, finishes_at, startingDateIsAfterEnding });
 
     if (startingDateIsAfterEnding) {
       throw new UnprocessableEntityException(
@@ -48,8 +47,23 @@ class CreateAppointmentUseCase {
       throw new BadRequestException('A valid class must be provided.');
     }
 
+    const appointmentExists =
+      await this.appointmentsRepository.existsByClassAndInterval({
+        class_id,
+        responsible_id,
+        starts_at,
+        finishes_at,
+      });
+
+    if (appointmentExists) {
+      throw new BadRequestException(
+        `An appointment already scheduled at this time to this class and teacher.`,
+      );
+    }
+
     const appointment = await this.appointmentsRepository.create({
       class_id,
+      responsible_id,
       starts_at,
       finishes_at,
     });
