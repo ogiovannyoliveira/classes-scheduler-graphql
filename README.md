@@ -43,7 +43,7 @@ I intend to make just the backend, but I'm opened to work together with whoever 
   | 01 | A Teacher can create many classes | ✅ |
   | 02 | A Teacher can create many appointments to the classes | ✅ |
   | 03 | A Teacher cannot create more than one appointment at the same period (day and time) and same responsible | ✅ |
-  | 04 | A Teacher can see all appointments he made in a day | |
+  | 04 | A Teacher can see all appointments he made in a day | ✅ |
   | 05 | A Teacher can see all appointments he made by a period of time | |
   | 06 | A Teacher can check if the Student attended the schedule | |
   | 07 | A Teacher can update the Student level to any other higher | |
@@ -66,7 +66,7 @@ I intend to make just the backend, but I'm opened to work together with whoever 
   |  02   | 04 | An Appointment can be created only by a Teacher | |
   |  03   | 05 | A message must be shown saying that the period was already chosen | ✅ |
   |  03   | 06 | A new time can be suggested when the Teacher choose an used period | |
-  |  04   | 07 | A date in american format (year-month-day) must be passed | |
+  |  04   | 07 | A date in american format (year-month-day) must be passed | ✅ |
   |  05   | 08 | A initial and final dates in american format (year-month-day) must be passed and return grouped by day | |
   |  09   | 09 | A message must be shown saying that the Student cannot select two classes at the same period and which was chosen before | |
   |  12   | 10 | A responsible can be the teacher itself or another one | |

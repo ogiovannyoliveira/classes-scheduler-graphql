@@ -6,6 +6,7 @@ import {
   PaginationInput,
   PaginationOutput,
 } from '~shared//http/pipes/PaginationInput';
+import { ValidatorAmericanDateFormatParamPipe } from '~shared/http/pipes/ValidatorAmericanDateFormatParam.pipe';
 
 import { CreateAppointmentUseCase } from '~modules/appointments/useCases/createAppointment/CreateAppointment.useCase';
 import { FindAppointmentsByTeacherIdAndDateUseCase } from '~modules/appointments/useCases/findAppointmentsByTeacherIdAndDate/FindAppointmentsByTeacherIdAndDate.useCase';
@@ -33,7 +34,7 @@ class AppointmentsResolver {
   @Query(() => AppointmentAndTotalInterface)
   async getAppointmentsByTeacherIdAndDate(
     @Args('teacher_id') teacher_id: string,
-    @Args('date') date: string,
+    @Args('date', ValidatorAmericanDateFormatParamPipe) date: string,
     @Args(
       {
         name: 'pagination',
