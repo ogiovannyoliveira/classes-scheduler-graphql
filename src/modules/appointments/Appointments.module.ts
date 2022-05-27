@@ -10,6 +10,7 @@ import { AppointmentsResolver } from './infra/graphql/resolvers/Appointments.res
 import { Appointment } from './infra/typeorm/entities/Appointment';
 import { AppointmentsRepository } from './infra/typeorm/repositories/AppointmentsRepository';
 import { CreateAppointmentUseCase } from './useCases/createAppointment/CreateAppointment.useCase';
+import { FindAppointmentsByTeacherIdAndDateUseCase } from './useCases/findAppointmentsByTeacherIdAndDate/FindAppointmentsByTeacherIdAndDate.useCase';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { CreateAppointmentUseCase } from './useCases/createAppointment/CreateApp
   providers: [
     AppointmentsResolver,
     CreateAppointmentUseCase,
+    FindAppointmentsByTeacherIdAndDateUseCase,
     {
       provide: 'AppointmentsRepository',
       inject: [AppointmentsRepository],

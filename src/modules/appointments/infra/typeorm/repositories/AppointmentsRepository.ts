@@ -1,6 +1,8 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
+import { PaginationOutput } from '~shared/http/pipes/PaginationInput';
+
 import { AppointmentExistsByClassAndIntervalDTO } from '~modules/appointments/dtos/AppointmentExistsByClassAndInterval.dto';
 import { IAppointmentsRepository } from '~modules/appointments/repositories/IAppointmentsRepository';
 
@@ -43,6 +45,29 @@ class AppointmentsRepository implements IAppointmentsRepository {
     );
 
     return exists;
+  }
+
+  async findByTeacherIdAndDate(
+    teacher_id: string,
+    date: string,
+    pagination: PaginationOutput,
+  ): Promise<{ data: Appointment[]; total: number }> {
+    const [data, total] = await this.repository
+      .createQueryBuilder('appointment')
+      .where('appointment.responsible_id = :teacher_id', {
+        teacher_id,
+      })
+      .where('appointment.starts_at::DATE = :date', {
+        date,
+      })
+      .skip(pagination.skip)
+      .take(pagination.take)
+      .getManyAndCount();
+
+    return {
+      data,
+      total,
+    };
   }
 }
 

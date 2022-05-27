@@ -13,6 +13,7 @@ const config: Config.InitialOptions = {
     {
       '~modules/*': ['src/modules/*'],
       '~providers/*': ['src/shared/infra/providers/*'],
+      '~shared/*': ['src/shared/*'],
     },
     {
       prefix: '<rootDir>/',

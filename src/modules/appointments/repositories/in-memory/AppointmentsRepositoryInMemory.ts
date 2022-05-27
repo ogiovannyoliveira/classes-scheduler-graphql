@@ -1,5 +1,7 @@
 import { v4 as uuid } from 'uuid';
 
+import { PaginationOutput } from '~shared/http/pipes/PaginationInput';
+
 import { AppointmentExistsByClassAndIntervalDTO } from '~modules/appointments/dtos/AppointmentExistsByClassAndInterval.dto';
 import { CreateAppointmentInput } from '~modules/appointments/infra/graphql/inputs/CreateAppointment.input';
 import { Appointment } from '~modules/appointments/infra/typeorm/entities/Appointment';
@@ -7,10 +9,11 @@ import { Appointment } from '~modules/appointments/infra/typeorm/entities/Appoin
 import { IAppointmentsRepository } from '../IAppointmentsRepository';
 
 class AppointmentsRepositoryInMemory implements IAppointmentsRepository {
-  private appointments: Appointment[] = [];
+  appointments: Appointment[] = [];
 
   async create({
     class_id,
+    responsible_id,
     starts_at,
     finishes_at,
   }: CreateAppointmentInput): Promise<Appointment> {
@@ -19,6 +22,7 @@ class AppointmentsRepositoryInMemory implements IAppointmentsRepository {
     Object.assign(appointment, {
       id: uuid(),
       class_id,
+      responsible_id,
       starts_at,
       finishes_at,
       created_at: new Date(),
@@ -45,6 +49,31 @@ class AppointmentsRepositoryInMemory implements IAppointmentsRepository {
     );
 
     return exists;
+  }
+
+  async findByTeacherIdAndDate(
+    teacher_id: string,
+    date: string,
+    pagination: PaginationOutput,
+  ): Promise<{ data: Appointment[]; total: number }> {
+    const appointments = this.appointments.filter(
+      (appointment) =>
+        appointment.responsible_id === teacher_id &&
+        appointment.starts_at.toDateString() === date,
+    );
+
+    const total = appointments.length;
+    const sumToCut = pagination.skip + pagination.take;
+
+    const data = appointments.slice(
+      pagination.skip,
+      sumToCut > total ? total : sumToCut,
+    );
+
+    return {
+      data,
+      total,
+    };
   }
 }
 

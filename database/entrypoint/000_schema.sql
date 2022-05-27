@@ -97,11 +97,13 @@ CREATE TABLE public.students (
 CREATE TABLE public.appointments (
   id uuid DEFAULT public.uuid_generate_v4() NOT NULL PRIMARY KEY,
   class_id uuid NOT NULL,
+  responsible_id uuid NOT NULL,
   starts_at timestamp with time zone NOT NULL,
   finishes_at timestamp with time zone NOT NULL,
   created_at timestamp with time zone DEFAULT now() NOT NULL,
   updated_at timestamp with time zone,
-  CONSTRAINT fk_class FOREIGN KEY (class_id) REFERENCES public.classes (id)
+  CONSTRAINT fk_class FOREIGN KEY (class_id) REFERENCES public.classes (id),
+  CONSTRAINT fk_class FOREIGN KEY (responsible_id) REFERENCES public.teachers (id)
 );
 
 --

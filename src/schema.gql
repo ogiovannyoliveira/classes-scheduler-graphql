@@ -17,6 +17,11 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type AppointmentAndTotalInterface {
+  data: [AppointmentInterface!]!
+  total: Float!
+}
+
 type Teacher {
   id: String!
   name: String!
@@ -48,6 +53,12 @@ type LevelInterface {
 type Query {
   teachers: [Teacher!]!
   levelById(id: String!): LevelInterface!
+  getAppointmentsByTeacherIdAndDate(teacher_id: String!, date: String!, pagination: PaginationInput): AppointmentAndTotalInterface!
+}
+
+input PaginationInput {
+  page: Float = 1
+  amount: Float = 10
 }
 
 type Mutation {
