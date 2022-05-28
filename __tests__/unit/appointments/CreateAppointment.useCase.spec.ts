@@ -81,4 +81,30 @@ describe('Create Appointment Use Case', () => {
       new BadRequestException('A valid class must be provided.'),
     );
   });
+
+  it('should not be able to create a new appointment if there is another at the same time', async () => {
+    const now = new Date();
+    const validClassId = classesRepositoryInMemory.validId;
+    const validResponsibleId = uuid();
+
+    await appointmentsRepositoryInMemory.create({
+      class_id: validClassId,
+      responsible_id: validResponsibleId,
+      starts_at: now,
+      finishes_at: new Date(now.setHours(now.getHours() + 1)),
+    });
+
+    const sut = createAppointmentUseCase.execute({
+      class_id: validClassId,
+      responsible_id: validResponsibleId,
+      starts_at: now,
+      finishes_at: new Date(now.setHours(now.getHours() + 1)),
+    });
+
+    await expect(sut).rejects.toEqual(
+      new BadRequestException(
+        'An appointment already scheduled at this time to this class and teacher.',
+      ),
+    );
+  });
 });

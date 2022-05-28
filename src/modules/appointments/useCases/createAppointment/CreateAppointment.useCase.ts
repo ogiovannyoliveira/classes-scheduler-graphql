@@ -57,7 +57,7 @@ class CreateAppointmentUseCase {
 
     if (appointmentExists) {
       throw new BadRequestException(
-        `An appointment already scheduled at this time to this class and teacher.`,
+        'An appointment already scheduled at this time to this class and teacher.',
       );
     }
 
