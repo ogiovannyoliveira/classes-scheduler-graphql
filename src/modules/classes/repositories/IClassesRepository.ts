@@ -4,6 +4,7 @@ import { Class } from '../infra/typeorm/entities/Class';
 interface IClassesRepository {
   create(data: CreateClassInput): Promise<Class>;
   existsById(id: string): Promise<boolean>;
+  findByIds(ids: string[]): Promise<Class[]>;
 }
 
 export { IClassesRepository };

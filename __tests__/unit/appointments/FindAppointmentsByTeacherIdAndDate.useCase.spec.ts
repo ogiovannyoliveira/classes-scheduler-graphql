@@ -33,16 +33,13 @@ describe('Find Appointments By Teacher Id And Date Use Case', () => {
   it('should be able to filter appointments passing a teacher and date', async () => {
     const validTeacherId = uuid();
     const now = new Date();
+    const APPOINTMENTS_QUANTITY = 5;
 
-    await appointmentFactory({
-      responsible_id: validTeacherId,
-    });
-    await appointmentFactory({
-      responsible_id: validTeacherId,
-    });
-    await appointmentFactory({
-      responsible_id: validTeacherId,
-    });
+    await Promise.all(
+      [...Array(APPOINTMENTS_QUANTITY)].map(async () =>
+        appointmentFactory({ responsible_id: validTeacherId }),
+      ),
+    );
 
     const sut = await findAppointmentsByTeacherIdAndDateUseCase.execute(
       validTeacherId,
@@ -53,7 +50,7 @@ describe('Find Appointments By Teacher Id And Date Use Case', () => {
       },
     );
 
-    expect(sut.total).toBe(3);
+    expect(sut.total).toBe(APPOINTMENTS_QUANTITY);
     expect(sut.data).toHaveLength(2);
     expect(sut.data[0].responsible_id).toBe(validTeacherId);
     expect(sut.data[1].responsible_id).toBe(validTeacherId);

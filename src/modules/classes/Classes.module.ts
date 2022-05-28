@@ -8,12 +8,14 @@ import { ClassesResolver } from './infra/graphql/resolvers/Classes.resolver';
 import { Class } from './infra/typeorm/entities/Class';
 import { ClassesRepository } from './infra/typeorm/repositories/ClassesRepository';
 import { CreateClassUseCase } from './useCases/createClass/CreateClass.useCase';
+import { FindClassesByIdsUseCase } from './useCases/FindClassesByIdsUseCase/FindClassesByIdsUseCase.useCase';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Class, Level])],
   providers: [
     ClassesResolver,
     CreateClassUseCase,
+    FindClassesByIdsUseCase,
     {
       provide: 'ClassesRepository',
       inject: [ClassesRepository],
@@ -26,6 +28,7 @@ import { CreateClassUseCase } from './useCases/createClass/CreateClass.useCase';
     },
   ],
   exports: [
+    FindClassesByIdsUseCase,
     {
       provide: 'ClassesRepository',
       inject: [ClassesRepository],

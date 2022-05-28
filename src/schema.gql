@@ -2,12 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type AppointmentInterface {
+type Teacher {
   id: String!
-  class_id: String!
-  responsible_id: String!
-  starts_at: DateTime!
-  finishes_at: DateTime!
+  name: String!
+  email: String!
   created_at: DateTime!
   updated_at: DateTime
 }
@@ -16,19 +14,6 @@ type AppointmentInterface {
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
-
-type AppointmentAndTotalInterface {
-  data: [AppointmentInterface!]!
-  total: Float!
-}
-
-type Teacher {
-  id: String!
-  name: String!
-  email: String!
-  created_at: DateTime!
-  updated_at: DateTime
-}
 
 type ClassInterface {
   id: String!
@@ -42,6 +27,31 @@ type ClassInterface {
   teacher: Teacher!
 }
 
+type TeacherInterface {
+  id: String!
+  name: String!
+  email: String!
+  created_at: DateTime!
+  updated_at: DateTime
+}
+
+type AppointmentInterface {
+  id: String!
+  class_id: String!
+  responsible_id: String!
+  starts_at: DateTime!
+  finishes_at: DateTime!
+  created_at: DateTime!
+  updated_at: DateTime
+  class: ClassInterface!
+  responsible: TeacherInterface!
+}
+
+type AppointmentAndTotalInterface {
+  data: [AppointmentInterface!]!
+  total: Float!
+}
+
 type LevelInterface {
   id: String!
   ordering: Float!
@@ -53,7 +63,13 @@ type LevelInterface {
 type Query {
   teachers: [Teacher!]!
   levelById(id: String!): LevelInterface!
-  getAppointmentsByTeacherIdAndDate(teacher_id: String!, date: String!, pagination: PaginationInput): AppointmentAndTotalInterface!
+  getAppointmentsByTeacherIdAndDate(
+    teacher_id: String!
+
+    """format YYYY-MM-DD"""
+    date: String!
+    pagination: PaginationInput
+  ): AppointmentAndTotalInterface!
 }
 
 input PaginationInput {

@@ -1,4 +1,13 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Context,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
+import * as DataLoader from 'dataloader';
 import { ValidatorPaginationParamsPipe } from 'src/shared/http/pipes/ValidatorPaginationParams.pipe';
 import { v4 as uuid } from 'uuid';
 
@@ -10,16 +19,20 @@ import { ValidatorAmericanDateFormatParamPipe } from '~shared/http/pipes/Validat
 
 import { CreateAppointmentUseCase } from '~modules/appointments/useCases/createAppointment/CreateAppointment.useCase';
 import { FindAppointmentsByTeacherIdAndDateUseCase } from '~modules/appointments/useCases/findAppointmentsByTeacherIdAndDate/FindAppointmentsByTeacherIdAndDate.useCase';
+import { ClassInterface } from '~modules/classes/infra/graphql/interfaces/ClassInterface';
+import { Class } from '~modules/classes/infra/typeorm/entities/Class';
+import { FindClassesByIdsUseCase } from '~modules/classes/useCases/FindClassesByIdsUseCase/FindClassesByIdsUseCase.useCase';
 
 import { CreateAppointmentInput } from '../inputs/CreateAppointment.input';
 import { AppointmentAndTotalInterface } from '../interfaces/AppointmentAndTotalInterface';
 import { AppointmentInterface } from '../interfaces/AppointmentInterface';
 
-@Resolver()
+@Resolver(() => AppointmentInterface)
 class AppointmentsResolver {
   constructor(
     private createAppointmentUseCase: CreateAppointmentUseCase,
     private findAppointmentsByTeacherIdAndDateUseCase: FindAppointmentsByTeacherIdAndDateUseCase,
+    private findClasses: FindClassesByIdsUseCase,
   ) {}
 
   @Mutation(() => AppointmentInterface)
@@ -34,13 +47,13 @@ class AppointmentsResolver {
   @Query(() => AppointmentAndTotalInterface)
   async getAppointmentsByTeacherIdAndDate(
     @Args('teacher_id') teacher_id: string,
-    @Args('date', ValidatorAmericanDateFormatParamPipe) date: string,
     @Args(
-      {
-        name: 'pagination',
-        nullable: true,
-        type: () => PaginationInput,
-      },
+      { name: 'date', description: 'format YYYY-MM-DD' },
+      ValidatorAmericanDateFormatParamPipe,
+    )
+    date: string,
+    @Args(
+      { name: 'pagination', nullable: true, type: () => PaginationInput },
       ValidatorPaginationParamsPipe,
     )
     paginate: PaginationOutput,
@@ -53,6 +66,34 @@ class AppointmentsResolver {
       );
 
     return appointments;
+  }
+
+  @ResolveField('class', () => ClassInterface)
+  async class(
+    @Parent() appointment: AppointmentInterface,
+    @Context('ClassesLoader') classesLoader: DataLoader<string, Class>,
+  ): Promise<Class> {
+    // METHOD 1
+    const classes = await classesLoader.load(appointment.class_id);
+
+    return classes;
+
+    // METHOD 2
+    // const classes = await this.findClasses.execute([appointment.class_id]);
+
+    // return classes[0];
+
+    // METHOD 3
+    // return {
+    //   id: uuid(),
+    //   minimum_level_id: uuid(),
+    //   teacher_id: uuid(),
+    //   title: '',
+    //   description: '',
+    //   link: '',
+    //   created_at: new Date(),
+    //   updated_at: new Date(),
+    // };
   }
 }
 

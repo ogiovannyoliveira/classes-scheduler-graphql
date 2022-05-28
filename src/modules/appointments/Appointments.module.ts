@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { Class } from '~modules/classes/infra/typeorm/entities/Class';
 import { ClassesRepository } from '~modules/classes/infra/typeorm/repositories/ClassesRepository';
+import { FindClassesByIdsUseCase } from '~modules/classes/useCases/FindClassesByIdsUseCase/FindClassesByIdsUseCase.useCase';
 
 import { DateManipulationProviderModule } from '~providers/DateManipulationProvider/DateManipulation.module';
 
@@ -21,6 +22,7 @@ import { FindAppointmentsByTeacherIdAndDateUseCase } from './useCases/findAppoin
     AppointmentsResolver,
     CreateAppointmentUseCase,
     FindAppointmentsByTeacherIdAndDateUseCase,
+    FindClassesByIdsUseCase,
     {
       provide: 'AppointmentsRepository',
       inject: [AppointmentsRepository],

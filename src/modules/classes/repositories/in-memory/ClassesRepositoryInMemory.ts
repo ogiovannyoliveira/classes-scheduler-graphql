@@ -58,6 +58,12 @@ class ClassesRepositoryInMemory implements IClassesRepository {
 
     return classExists;
   }
+
+  async findByIds(ids: string[]): Promise<Class[]> {
+    const classes = this.classes.filter((classy) => ids.includes(classy.id));
+
+    return classes;
+  }
 }
 
 export { ClassesRepositoryInMemory };

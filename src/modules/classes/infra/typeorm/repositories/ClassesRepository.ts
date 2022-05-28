@@ -1,5 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 
 import { IClassesRepository } from '~modules/classes/repositories/IClassesRepository';
 
@@ -27,6 +27,14 @@ class ClassesRepository implements IClassesRepository {
     );
 
     return exists;
+  }
+
+  async findByIds(ids: string[]): Promise<Class[]> {
+    const classes = await this.repository.find({
+      where: { id: In(ids) },
+    });
+
+    return classes;
   }
 }
 
