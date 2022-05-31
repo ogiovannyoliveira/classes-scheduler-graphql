@@ -1,11 +1,11 @@
 import { PaginationOutput } from '~shared/http/pipes/PaginationInput';
 
 import { AppointmentExistsByClassAndIntervalDTO } from '../dtos/AppointmentExistsByClassAndInterval.dto';
-import { CreateAppointmentInput } from '../infra/graphql/inputs/CreateAppointment.input';
+import { CreateAppointmentDTO } from '../dtos/CreateAppointment.dto';
 import { Appointment } from '../infra/typeorm/entities/Appointment';
 
 interface IAppointmentsRepository {
-  create(data: CreateAppointmentInput): Promise<Appointment>;
+  create(data: CreateAppointmentDTO): Promise<Appointment>;
   existsByClassAndInterval(
     params: AppointmentExistsByClassAndIntervalDTO,
   ): Promise<boolean>;

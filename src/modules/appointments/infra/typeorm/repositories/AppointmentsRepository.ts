@@ -4,9 +4,9 @@ import { Repository } from 'typeorm';
 import { PaginationOutput } from '~shared/http/pipes/PaginationInput';
 
 import { AppointmentExistsByClassAndIntervalDTO } from '~modules/appointments/dtos/AppointmentExistsByClassAndInterval.dto';
+import { CreateAppointmentDTO } from '~modules/appointments/dtos/CreateAppointment.dto';
 import { IAppointmentsRepository } from '~modules/appointments/repositories/IAppointmentsRepository';
 
-import { CreateAppointmentInput } from '../../graphql/inputs/CreateAppointment.input';
 import { Appointment } from '../entities/Appointment';
 
 class AppointmentsRepository implements IAppointmentsRepository {
@@ -15,8 +15,18 @@ class AppointmentsRepository implements IAppointmentsRepository {
     private repository: Repository<Appointment>,
   ) {}
 
-  async create(data: CreateAppointmentInput): Promise<Appointment> {
-    const appointmentToCreate = this.repository.create(data);
+  async create({
+    class_id,
+    responsible_id,
+    starts_at,
+    finishes_at,
+  }: CreateAppointmentDTO): Promise<Appointment> {
+    const appointmentToCreate = this.repository.create({
+      class_id,
+      responsible_id,
+      starts_at,
+      finishes_at,
+    });
 
     const appointment = this.repository.save(appointmentToCreate);
 

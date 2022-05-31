@@ -1,9 +1,9 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 
+import { CreateClassDTO } from '~modules/classes/dtos/CreateClass.dto';
 import { IClassesRepository } from '~modules/classes/repositories/IClassesRepository';
 
-import { CreateClassInput } from '../../graphql/inputs/CreateClass.input';
 import { Class } from '../entities/Class';
 
 class ClassesRepository implements IClassesRepository {
@@ -12,8 +12,18 @@ class ClassesRepository implements IClassesRepository {
     private repository: Repository<Class>,
   ) {}
 
-  async create(data: CreateClassInput): Promise<Class> {
-    const classyToCreate = this.repository.create(data);
+  async create({
+    teacher_id,
+    minimum_level_id,
+    title,
+    link,
+  }: CreateClassDTO): Promise<Class> {
+    const classyToCreate = this.repository.create({
+      teacher_id,
+      minimum_level_id,
+      title,
+      link,
+    });
 
     const classy = this.repository.save(classyToCreate);
 
