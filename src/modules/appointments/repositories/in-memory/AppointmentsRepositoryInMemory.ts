@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 import { PaginationOutput } from '~shared/http/pipes/PaginationInput';
 
 import { AppointmentExistsByClassAndIntervalDTO } from '~modules/appointments/dtos/AppointmentExistsByClassAndInterval.dto';
-import { CreateAppointmentInput } from '~modules/appointments/infra/graphql/inputs/CreateAppointment.input';
+import { CreateAppointmentDTO } from '~modules/appointments/dtos/CreateAppointment.dto';
 import { Appointment } from '~modules/appointments/infra/typeorm/entities/Appointment';
 
 import { IAppointmentsRepository } from '../IAppointmentsRepository';
@@ -16,7 +16,7 @@ class AppointmentsRepositoryInMemory implements IAppointmentsRepository {
     responsible_id,
     starts_at,
     finishes_at,
-  }: CreateAppointmentInput): Promise<Appointment> {
+  }: CreateAppointmentDTO): Promise<Appointment> {
     const appointment = new Appointment();
 
     Object.assign(appointment, {
