@@ -22,6 +22,7 @@ import { FindAppointmentsByTeacherIdAndDateUseCase } from '~modules/appointments
 import { ClassInterface } from '~modules/classes/infra/graphql/interfaces/ClassInterface';
 import { Class } from '~modules/classes/infra/typeorm/entities/Class';
 import { FindClassesByIdsUseCase } from '~modules/classes/useCases/FindClassesByIdsUseCase/FindClassesByIdsUseCase.useCase';
+import { TeacherInterface } from '~modules/teachers/infra/graphql/interfaces/TeacherInterface';
 
 import { CreateAppointmentInput } from '../inputs/CreateAppointment.input';
 import { AppointmentAndTotalInterface } from '../interfaces/AppointmentAndTotalInterface';
@@ -94,6 +95,17 @@ class AppointmentsResolver {
     //   created_at: new Date(),
     //   updated_at: new Date(),
     // };
+  }
+
+  @ResolveField('responsible', () => TeacherInterface)
+  async responsible(
+    @Parent() appointment: AppointmentInterface,
+    @Context('TeachersLoader')
+    teachersLoader: DataLoader<string, TeacherInterface>,
+  ): Promise<TeacherInterface> {
+    const teachers = await teachersLoader.load(appointment.responsible_id);
+
+    return teachers;
   }
 }
 

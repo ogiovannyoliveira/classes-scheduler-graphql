@@ -33,6 +33,7 @@ class AppointmentInterface implements AbstractAppointment {
   @Field(() => ClassInterface)
   class?: ClassInterface;
 
+  // make dataloader and parent function
   @Field(() => TeacherInterface)
   responsible?: TeacherInterface;
 }

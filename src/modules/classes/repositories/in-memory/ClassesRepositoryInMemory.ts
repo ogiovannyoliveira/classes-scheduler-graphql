@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
-import { CreateClassInput } from '~modules/classes/infra/graphql/inputs/CreateClass.input';
+import { CreateClassDTO } from '~modules/classes/dtos/CreateClass.dto';
 import { Class } from '~modules/classes/infra/typeorm/entities/Class';
 import { LevelsRepositoryInMemory } from '~modules/levels/repositories/in-memory/LevelsRepositoryInMemory';
 
@@ -35,7 +35,7 @@ class ClassesRepositoryInMemory implements IClassesRepository {
     minimum_level_id,
     title,
     link,
-  }: CreateClassInput): Promise<Class> {
+  }: CreateClassDTO): Promise<Class> {
     const classy = new Class();
 
     Object.assign(classy, {
