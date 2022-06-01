@@ -75,6 +75,21 @@ class AppointmentsRepositoryInMemory implements IAppointmentsRepository {
       total,
     };
   }
+
+  async findByTeacherIdAndPeriod(
+    teacher_id: string,
+    initial_date: string,
+    final_date: string,
+  ): Promise<Appointment[]> {
+    const appointments = this.appointments.filter(
+      (appointment) =>
+        appointment.responsible_id === teacher_id &&
+        appointment.starts_at >= new Date(initial_date) &&
+        appointment.starts_at <= new Date(final_date),
+    );
+
+    return appointments;
+  }
 }
 
 export { AppointmentsRepositoryInMemory };

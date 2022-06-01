@@ -1,9 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 
 import { ClassInterface } from '~modules/classes/infra/graphql/interfaces/ClassInterface';
-import { Class } from '~modules/classes/infra/typeorm/entities/Class';
 import { TeacherInterface } from '~modules/teachers/infra/graphql/interfaces/TeacherInterface';
-import { Teacher } from '~modules/teachers/infra/typeorm/entities/Teacher';
 
 import { AbstractAppointment } from '../../abstracts/Appointment';
 

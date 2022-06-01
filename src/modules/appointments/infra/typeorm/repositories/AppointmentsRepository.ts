@@ -79,6 +79,28 @@ class AppointmentsRepository implements IAppointmentsRepository {
       total,
     };
   }
+
+  async findByTeacherIdAndPeriod(
+    teacher_id: string,
+    initial_date: string,
+    final_date: string,
+  ): Promise<Appointment[]> {
+    const appointments = await this.repository
+      .createQueryBuilder('appointment')
+      .where('appointment.responsible_id = :teacher_id', {
+        teacher_id,
+      })
+      .where(
+        'appointment.starts_at::DATE BETWEEN :initial_date AND :final_date',
+        {
+          initial_date,
+          final_date,
+        },
+      )
+      .getMany();
+
+    return appointments;
+  }
 }
 
 export { AppointmentsRepository };

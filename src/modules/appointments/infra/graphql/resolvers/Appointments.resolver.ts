@@ -18,6 +18,7 @@ import {
 import { ValidatorAmericanDateFormatParamPipe } from '~shared/http/pipes/ValidatorAmericanDateFormatParam.pipe';
 
 import { CreateAppointmentUseCase } from '~modules/appointments/useCases/createAppointment/CreateAppointment.useCase';
+import { FindAppointmentsByTeacherIdAndPeriodUseCase } from '~modules/appointments/useCases/findAppointmentsByTeacherAndPeriod/FindAppointmentsByTeacherAndPeriod.useCase';
 import { FindAppointmentsByTeacherIdAndDateUseCase } from '~modules/appointments/useCases/findAppointmentsByTeacherIdAndDate/FindAppointmentsByTeacherIdAndDate.useCase';
 import { ClassInterface } from '~modules/classes/infra/graphql/interfaces/ClassInterface';
 import { Class } from '~modules/classes/infra/typeorm/entities/Class';
@@ -33,6 +34,7 @@ class AppointmentsResolver {
   constructor(
     private createAppointmentUseCase: CreateAppointmentUseCase,
     private findAppointmentsByTeacherIdAndDateUseCase: FindAppointmentsByTeacherIdAndDateUseCase,
+    private findAppointmentsByTeacherIdAndPeriodUseCase: FindAppointmentsByTeacherIdAndPeriodUseCase,
     private findClasses: FindClassesByIdsUseCase,
   ) {}
 
@@ -64,6 +66,30 @@ class AppointmentsResolver {
         teacher_id,
         date,
         paginate,
+      );
+
+    return appointments;
+  }
+
+  @Query(() => [AppointmentInterface])
+  async getAppointmentsByTeacherIdAndPeriod(
+    @Args('teacher_id') teacher_id: string,
+    @Args(
+      { name: 'initial_date', description: 'format YYYY-MM-DD' },
+      ValidatorAmericanDateFormatParamPipe,
+    )
+    initial_date: string,
+    @Args(
+      { name: 'final_date', description: 'format YYYY-MM-DD' },
+      ValidatorAmericanDateFormatParamPipe,
+    )
+    final_date: string,
+  ): Promise<AppointmentInterface[]> {
+    const appointments =
+      await this.findAppointmentsByTeacherIdAndPeriodUseCase.execute(
+        teacher_id,
+        initial_date,
+        final_date,
       );
 
     return appointments;

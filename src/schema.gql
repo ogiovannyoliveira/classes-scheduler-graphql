@@ -70,6 +70,15 @@ type Query {
     date: String!
     pagination: PaginationInput
   ): AppointmentAndTotalInterface!
+  getAppointmentsByTeacherIdAndPeriod(
+    teacher_id: String!
+
+    """format YYYY-MM-DD"""
+    initial_date: String!
+
+    """format YYYY-MM-DD"""
+    final_date: String!
+  ): [AppointmentInterface!]!
 }
 
 input PaginationInput {
