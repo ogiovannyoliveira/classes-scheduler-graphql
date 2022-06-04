@@ -70,7 +70,7 @@ I intend to make just the backend, but I'm opened to work together with whoever 
   |  05   | 08 | A initial and final dates in american format (year-month-day) must be passed and return grouped by day | |
   |  09   | 09 | A message must be shown saying that the Student cannot select two classes at the same period and which was chosen before | |
   |  12   | 10 | A responsible can be the teacher itself or another one | |
-  |  05   | 11 | The period of time cannot be greater than 30 days | ⏳ |
+  |  05   | 11 | The period of time cannot be greater than 30 days | ✅ |
 </details>
 
 ## To the future :rocket:

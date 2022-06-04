@@ -1,17 +1,24 @@
+import { BadRequestException } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
 
 import { Appointment } from '~modules/appointments/infra/typeorm/entities/Appointment';
 import { AppointmentsRepositoryInMemory } from '~modules/appointments/repositories/in-memory/AppointmentsRepositoryInMemory';
 import { FindAppointmentsByTeacherIdAndPeriodUseCase } from '~modules/appointments/useCases/findAppointmentsByTeacherAndPeriod/FindAppointmentsByTeacherAndPeriod.useCase';
 
+import { DayjsFake } from '~providers/DateManipulationProvider/fakes/DayjsFake';
+import { IDateManipulation } from '~providers/DateManipulationProvider/interfaces/IDateManipulation';
+
 describe('Find Appointments By Teacher Id And Period Use Case', () => {
+  let dayjsFaker: IDateManipulation;
   let appointmentsRepositoryInMemory: AppointmentsRepositoryInMemory;
   let findAppointmentsByTeacherIdAndPeriodUseCase: FindAppointmentsByTeacherIdAndPeriodUseCase;
 
   beforeEach(() => {
+    dayjsFaker = new DayjsFake();
     appointmentsRepositoryInMemory = new AppointmentsRepositoryInMemory();
     findAppointmentsByTeacherIdAndPeriodUseCase =
       new FindAppointmentsByTeacherIdAndPeriodUseCase(
+        dayjsFaker,
         appointmentsRepositoryInMemory,
       );
   });
@@ -53,5 +60,22 @@ describe('Find Appointments By Teacher Id And Period Use Case', () => {
     );
 
     expect(sut).toHaveLength(4);
+  });
+
+  it('should not be able to filter appointments passing a date range greater than the limit', async () => {
+    const validTeacherId = uuid();
+    const now = new Date();
+    const A_DAY = 1000 * 60 * 60 * 24;
+    const NOW_PLUS_THIRTY_ONE_DAYS = new Date(now.getTime() + A_DAY * 31);
+
+    const sut = findAppointmentsByTeacherIdAndPeriodUseCase.execute(
+      validTeacherId,
+      now.toDateString(),
+      NOW_PLUS_THIRTY_ONE_DAYS.toDateString(),
+    );
+
+    await expect(sut).rejects.toEqual(
+      new BadRequestException('The date range cannot be greater than 30 days.'),
+    );
   });
 });
