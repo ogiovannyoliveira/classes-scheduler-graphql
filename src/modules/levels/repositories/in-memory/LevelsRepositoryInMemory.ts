@@ -1,5 +1,3 @@
-import { v4 as uuid } from 'uuid';
-
 import { Level } from '~modules/levels/infra/typeorm/entities/Level';
 
 import { ILevelsRepository } from '../ILevelsRepository';
