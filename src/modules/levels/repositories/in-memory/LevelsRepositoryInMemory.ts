@@ -22,6 +22,18 @@ class LevelsRepositoryInMemory implements ILevelsRepository {
 
     return level;
   }
+
+  async existsById(id: string): Promise<boolean> {
+    const levelExists = this.levels.some((level) => level.id === id);
+
+    return levelExists;
+  }
+
+  async findLowest(): Promise<Level> {
+    const [lowestLevel] = this.levels.sort((a, b) => a.ordering - b.ordering);
+
+    return lowestLevel;
+  }
 }
 
 export { LevelsRepositoryInMemory };
