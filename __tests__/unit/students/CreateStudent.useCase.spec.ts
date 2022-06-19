@@ -56,6 +56,6 @@ describe('Create Student Use Case', () => {
       password: '**********',
     });
 
-    await expect(sut).rejects.toThrowError('Level was not found.');
+    expect(sut).rejects.toThrowError('Level was not found.');
   });
 });

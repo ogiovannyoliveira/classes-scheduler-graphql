@@ -6,7 +6,20 @@ import { Teacher } from '~modules/teachers/infra/typeorm/entities/Teacher';
 import { ITeachersRepository } from '../ITeachersRepository';
 
 class TeachersRepositoryInMemory implements ITeachersRepository {
-  private teachers: Teacher[] = [];
+  get validId(): string {
+    return '642d4839-546b-4eac-a0f6-67001161bc86';
+  }
+
+  private teachers: Teacher[] = [
+    {
+      id: this.validId,
+      name: 'John Doe',
+      email: 'johndoe@mail.com',
+      password: '*********',
+      created_at: new Date(),
+      updated_at: null,
+    },
+  ];
 
   async create({ name, email, password }: CreateTeacherDTO): Promise<Teacher> {
     const teacher = new Teacher();

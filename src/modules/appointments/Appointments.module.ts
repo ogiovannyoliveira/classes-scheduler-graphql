@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { Class } from '~modules/classes/infra/typeorm/entities/Class';
 import { ClassesRepository } from '~modules/classes/infra/typeorm/repositories/ClassesRepository';
-import { FindClassesByIdsUseCase } from '~modules/classes/useCases/FindClassesByIdsUseCase/FindClassesByIdsUseCase.useCase';
+import { FindClassesByIdsUseCase } from '~modules/classes/useCases/findClassesByIdsUseCase/findClassesByIdsUseCase.useCase';
 
 import { DateManipulationProviderModule } from '~providers/DateManipulationProvider/DateManipulation.module';
 

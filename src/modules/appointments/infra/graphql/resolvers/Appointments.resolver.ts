@@ -22,7 +22,7 @@ import { FindAppointmentsByTeacherIdAndPeriodUseCase } from '~modules/appointmen
 import { FindAppointmentsByTeacherIdAndDateUseCase } from '~modules/appointments/useCases/findAppointmentsByTeacherIdAndDate/FindAppointmentsByTeacherIdAndDate.useCase';
 import { ClassInterface } from '~modules/classes/infra/graphql/interfaces/ClassInterface';
 import { Class } from '~modules/classes/infra/typeorm/entities/Class';
-import { FindClassesByIdsUseCase } from '~modules/classes/useCases/FindClassesByIdsUseCase/FindClassesByIdsUseCase.useCase';
+import { FindClassesByIdsUseCase } from '~modules/classes/useCases/findClassesByIdsUseCase/findClassesByIdsUseCase.useCase';
 import { TeacherInterface } from '~modules/teachers/infra/graphql/interfaces/TeacherInterface';
 
 import { CreateAppointmentInput } from '../inputs/CreateAppointment.input';

@@ -1,5 +1,8 @@
+import { CreateScheduleDTO } from '../dtos/CreateSchedule.dto';
+import { Schedule } from '../infra/typeorm/entities/Schedule';
+
 interface ISchedulesRepository {
-  create(): Promise<void>;
+  create(params: CreateScheduleDTO): Promise<Schedule>;
 }
 
 export { ISchedulesRepository };

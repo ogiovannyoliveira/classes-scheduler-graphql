@@ -6,6 +6,7 @@ import { Appointment } from '../infra/typeorm/entities/Appointment';
 
 interface IAppointmentsRepository {
   create(data: CreateAppointmentDTO): Promise<Appointment>;
+  existsById(id: string): Promise<boolean>;
   existsByClassAndInterval(
     params: AppointmentExistsByClassAndIntervalDTO,
   ): Promise<boolean>;
