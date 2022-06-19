@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 
 import { Class } from '~modules/classes/infra/typeorm/entities/Class';
 import { ClassesRepositoryInMemory } from '~modules/classes/repositories/in-memory/ClassesRepositoryInMemory';
-import { FindClassesByIdsUseCase } from '~modules/classes/useCases/findClassesByIdsUseCase/findClassesByIdsUseCase.useCase';
+import { FindClassesByIdsUseCase } from '~modules/classes/useCases/findClassesByIdsUseCase/FindClassesByIdsUseCase.useCase';
 
 describe('Find Classes By Ids Use Case', () => {
   let classesRepositoryInMemory: ClassesRepositoryInMemory;

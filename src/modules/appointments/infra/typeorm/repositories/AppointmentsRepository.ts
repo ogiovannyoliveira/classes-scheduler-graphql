@@ -33,6 +33,15 @@ class AppointmentsRepository implements IAppointmentsRepository {
     return appointment;
   }
 
+  async existsById(id: string): Promise<boolean> {
+    const [{ exists }] = await this.repository.query(
+      'SELECT EXISTS(SELECT 1 FROM appointments WHERE appointments.id = $1)',
+      [id],
+    );
+
+    return exists;
+  }
+
   async existsByClassAndInterval({
     class_id,
     responsible_id,

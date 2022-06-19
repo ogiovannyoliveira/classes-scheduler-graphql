@@ -60,6 +60,29 @@ type LevelInterface {
   updated_at: DateTime
 }
 
+type StudentInterface {
+  id: String!
+  level_id: String!
+  name: String!
+  email: String!
+  phone: String!
+  created_at: DateTime!
+  updated_at: DateTime
+}
+
+type ScheduleInterface {
+  id: String!
+  class_id: String!
+  appointment_id: String!
+  student_id: String!
+  attended: Boolean
+  created_at: DateTime!
+  updated_at: DateTime
+  class: ClassInterface!
+  appointment: AppointmentInterface!
+  student: StudentInterface!
+}
+
 type Query {
   teachers: [Teacher!]!
   levelById(id: String!): LevelInterface!
@@ -89,6 +112,7 @@ input PaginationInput {
 type Mutation {
   createClass(input: CreateClassInput!): ClassInterface!
   createAppointment(input: CreateAppointmentInput!): AppointmentInterface!
+  createSchedule(input: CreateScheduleInput!): ScheduleInterface!
 }
 
 input CreateClassInput {
@@ -104,4 +128,10 @@ input CreateAppointmentInput {
   responsible_id: String!
   starts_at: DateTime!
   finishes_at: DateTime!
+}
+
+input CreateScheduleInput {
+  appointment_id: String!
+  class_id: String!
+  student_id: String!
 }

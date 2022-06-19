@@ -1,12 +1,14 @@
 import {
   Column,
   CreateDateColumn,
+  Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 import { AbstractSchedule } from '../../abstracts/Schedule';
 
+@Entity({ name: 'schedules' })
 class Schedule implements AbstractSchedule {
   @PrimaryGeneratedColumn('uuid')
   id: string;

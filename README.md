@@ -47,9 +47,9 @@ I intend to make just the backend, but I'm opened to work together with whoever 
   | 05 | A Teacher can see all appointments he made by a period of time | ✅ |
   | 06 | A Teacher can check if any Student attended the schedule | |
   | 07 | A Teacher can update the Student level to any other higher | |
-  | 08 | A Student can schedule many classes (appointments) | ⏳ |
-  | 09 | A Student cannot schedule more than one class (appointments) at the same period (day and time) | |
-  | 10 | A Student can schedule a class only if he has the minimum required level to participate | |
+  | 08 | A Student can schedule many classes (appointments) | ✅ |
+  | 09 | A Student cannot schedule more than one class (appointments) at the same period (day and time) | ⏳ |
+  | 10 | A Student can schedule a class only if he has the minimum required level to participate | ⏳ |
   | 11 | A Student can view all the classes (appointments) where his level is lower than or equal class levels | |
   | 12 | A Teacher must provide a valid responsible to create an appointment | |
 </details>
@@ -68,8 +68,8 @@ I intend to make just the backend, but I'm opened to work together with whoever 
   |  03   | 06 | A new time can be suggested when the Teacher choose an used period | |
   |  04   | 07 | A date in american format (year-month-day) must be passed | ✅ |
   |  05   | 08 | A initial and final dates in american format (year-month-day) must be passed and return grouped by day | |
-  |  09   | 09 | A message must be shown saying that the Student cannot select two classes at the same period and which was chosen before | |
-  |  12   | 10 | A responsible can be the teacher itself or another one | |
+  |  09   | 09 | A message must be shown saying that the Student cannot select two classes at the same period and which was chosen before | ⏳ |
+  |  12   | 10 | A responsible can be the teacher itself or another one | ⏳ |
   |  05   | 11 | The period of time cannot be greater than 30 days | ✅ |
 </details>
 

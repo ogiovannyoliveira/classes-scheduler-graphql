@@ -1,8 +1,8 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 
-import { Appointment } from '~modules/appointments/infra/typeorm/entities/Appointment';
-import { Class } from '~modules/classes/infra/typeorm/entities/Class';
-import { Student } from '~modules/students/infra/typeorm/entities/Student';
+import { AppointmentInterface } from '~modules/appointments/infra/graphql/interfaces/AppointmentInterface';
+import { ClassInterface } from '~modules/classes/infra/graphql/interfaces/ClassInterface';
+import { StudentInterface } from '~modules/students/infra/graphql/interfaces/StudentInterface';
 
 import { AbstractSchedule } from '../../abstracts/Schedule';
 
@@ -20,7 +20,7 @@ class ScheduleInterface implements AbstractSchedule {
   @Field()
   student_id: string;
 
-  @Field()
+  @Field({ nullable: true })
   attended?: boolean;
 
   @Field()
@@ -30,14 +30,14 @@ class ScheduleInterface implements AbstractSchedule {
   updated_at?: Date;
 
   /** related columns */
-  @Field(() => Class)
-  class?: Class;
+  @Field(() => ClassInterface)
+  class?: ClassInterface;
 
-  @Field(() => Appointment)
-  appointment?: Appointment;
+  @Field(() => AppointmentInterface)
+  appointment?: AppointmentInterface;
 
-  @Field(() => Student)
-  student?: Student;
+  @Field(() => StudentInterface)
+  student?: StudentInterface;
 }
 
 export { ScheduleInterface };

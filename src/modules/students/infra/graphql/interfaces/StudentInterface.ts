@@ -1,7 +1,8 @@
-import { Field } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 
 import { StudentAbstract } from '../../abstracts/Student';
 
+@ObjectType()
 class StudentInterface implements StudentAbstract {
   @Field()
   id: string;

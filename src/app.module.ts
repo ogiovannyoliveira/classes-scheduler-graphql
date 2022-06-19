@@ -8,8 +8,9 @@ import { join } from 'path';
 import { AppointmentsModule } from '~modules/appointments/Appointments.module';
 import { ClassesModule } from '~modules/classes/Classes.module';
 import { createClassesLoader } from '~modules/classes/infra/graphql/dataloaders/Classes.loader';
-import { FindClassesByIdsUseCase } from '~modules/classes/useCases/findClassesByIdsUseCase/findClassesByIdsUseCase.useCase';
+import { FindClassesByIdsUseCase } from '~modules/classes/useCases/findClassesByIdsUseCase/FindClassesByIdsUseCase.useCase';
 import { LevelsModule } from '~modules/levels/Levels.module';
+import { SchedulesModule } from '~modules/schedules/Schedules.module';
 import { createTeachersLoader } from '~modules/teachers/infra/graphql/dataloaders/Teachers.dataloader';
 import { TeachersModule } from '~modules/teachers/Teachers.module';
 import { FindTeachersByIdsUseCase } from '~modules/teachers/useCases/findTeachersByIds/FindTeachersByIds.useCase';
@@ -42,6 +43,7 @@ import databaseConfig from './shared/infra/typeorm';
     ClassesModule,
     LevelsModule,
     AppointmentsModule,
+    SchedulesModule,
   ],
 })
 export class AppModule {}

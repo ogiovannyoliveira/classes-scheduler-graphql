@@ -10,11 +10,11 @@ import { CreateScheduleType } from './CreateSchedule.type';
 @Injectable()
 class CreateScheduleUseCase {
   constructor(
-    @Inject('ScheduleRepository')
+    @Inject('SchedulesRepository')
     private readonly schedulesRepository: ISchedulesRepository,
-    @Inject('AppointmentRepository')
+    @Inject('AppointmentsRepository')
     private readonly appointmentsRepository: IAppointmentsRepository,
-    @Inject('ClassRepository')
+    @Inject('ClassesRepository')
     private readonly classesRepository: IClassesRepository,
   ) {}
 

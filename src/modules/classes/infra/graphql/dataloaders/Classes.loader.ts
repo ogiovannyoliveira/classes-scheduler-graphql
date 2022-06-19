@@ -1,6 +1,6 @@
 import * as DataLoader from 'dataloader';
 
-import { FindClassesByIdsUseCase } from '~modules/classes/useCases/findClassesByIdsUseCase/findClassesByIdsUseCase.useCase';
+import { FindClassesByIdsUseCase } from '~modules/classes/useCases/findClassesByIdsUseCase/FindClassesByIdsUseCase.useCase';
 
 import { Class } from '../../typeorm/entities/Class';
 
