@@ -15,7 +15,7 @@ class AppointmentsRepository implements IAppointmentsRepository {
     private repository: Repository<Appointment>,
   ) {}
 
-  async create({
+  create({
     class_id,
     responsible_id,
     starts_at,
@@ -64,6 +64,12 @@ class AppointmentsRepository implements IAppointmentsRepository {
     );
 
     return exists;
+  }
+
+  findById(id: string): Promise<Appointment> {
+    const appointment = this.repository.findOne({ where: { id } });
+
+    return appointment;
   }
 
   async findByTeacherIdAndDate(

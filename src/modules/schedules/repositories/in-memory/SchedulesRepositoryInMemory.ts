@@ -29,6 +29,20 @@ class SchedulesRepositoryInMemory implements ISchedulesRepository {
 
     return schedule;
   }
+
+  async findTotalSchedulesAtTheSamePeriodByStudentId(
+    student_id: string,
+    starts_at: Date,
+    finishes_at: Date,
+  ): Promise<number> {
+    const schedules = this.schedules.filter(
+      (schedule) => schedule.student_id === student_id,
+    );
+
+    const totalSchedules = schedules.length;
+
+    return totalSchedules;
+  }
 }
 
 export { SchedulesRepositoryInMemory };

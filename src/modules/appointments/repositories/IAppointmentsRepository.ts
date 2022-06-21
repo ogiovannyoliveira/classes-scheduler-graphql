@@ -10,6 +10,7 @@ interface IAppointmentsRepository {
   existsByClassAndInterval(
     params: AppointmentExistsByClassAndIntervalDTO,
   ): Promise<boolean>;
+  findById(id: string): Promise<Appointment>;
   findByTeacherIdAndDate(
     teacher_id: string,
     date: string,

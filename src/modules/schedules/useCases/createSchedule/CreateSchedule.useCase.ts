@@ -23,13 +23,27 @@ class CreateScheduleUseCase {
     class_id,
     student_id,
   }: CreateScheduleType): Promise<Schedule> {
-    const [validAppointmentId, validClassId] = await Promise.all([
-      this.appointmentsRepository.existsById(appointment_id),
+    const [validAppointment, isValidClassId] = await Promise.all([
+      this.appointmentsRepository.findById(appointment_id),
       this.classesRepository.existsById(class_id),
     ]);
 
-    if (!validAppointmentId || !validClassId) {
+    if (!validAppointment || !isValidClassId) {
       throw new BadRequestException('Invalid appointment or class id');
+    }
+
+    // find schedule by student_id and start_at and end_at from appointment
+    const hasScheduleAtSamePeriod =
+      await this.schedulesRepository.findTotalSchedulesAtTheSamePeriodByStudentId(
+        student_id,
+        validAppointment.starts_at,
+        validAppointment.finishes_at,
+      );
+
+    if (hasScheduleAtSamePeriod) {
+      throw new BadRequestException(
+        'Student already has a schedule at this time',
+      );
     }
 
     const schedule = await this.schedulesRepository.create({

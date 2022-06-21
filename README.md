@@ -48,7 +48,7 @@ I intend to make just the backend, but I'm opened to work together with whoever 
   | 06 | A Teacher can check if any Student attended the schedule | |
   | 07 | A Teacher can update the Student level to any other higher | |
   | 08 | A Student can schedule many classes (appointments) | ✅ |
-  | 09 | A Student cannot schedule more than one class (appointments) at the same period (day and time) | ⏳ |
+  | 09 | A Student cannot schedule more than one class (appointments) at the same period (day and time) | ✅ |
   | 10 | A Student can schedule a class only if he has the minimum required level to participate | ⏳ |
   | 11 | A Student can view all the classes (appointments) where his level is lower than or equal class levels | |
   | 12 | A Teacher must provide a valid responsible to create an appointment | |

@@ -12,7 +12,7 @@ class SchedulesRepository implements ISchedulesRepository {
     private repository: Repository<Schedule>,
   ) {}
 
-  async create({
+  create({
     appointment_id,
     class_id,
     student_id,
@@ -26,6 +26,32 @@ class SchedulesRepository implements ISchedulesRepository {
     const schedule = this.repository.save(scheduleToCreate);
 
     return schedule;
+  }
+
+  findTotalSchedulesAtTheSamePeriodByStudentId(
+    student_id: string,
+    starts_at: Date,
+    finishes_at: Date,
+  ): Promise<number> {
+    const schedulesTotal = this.repository
+      .createQueryBuilder('schedule')
+      .leftJoin(
+        'appointments',
+        'appointment',
+        'schedule.appointment_id = appointment.id',
+      )
+      .where('schedule.student_id = :student_id', {
+        student_id,
+      })
+      .andWhere('appointment.starts_at = :starts_at', {
+        starts_at,
+      })
+      .andWhere('appointment.finishes_at = :finishes_at', {
+        finishes_at,
+      })
+      .getCount();
+
+    return schedulesTotal;
   }
 }
 

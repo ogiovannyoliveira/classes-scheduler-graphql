@@ -87,6 +87,14 @@ class AppointmentsRepositoryInMemory implements IAppointmentsRepository {
     return exists;
   }
 
+  async findById(id: string): Promise<Appointment> {
+    const appointment = this.appointments.find(
+      (appointment) => appointment.id === id,
+    );
+
+    return appointment;
+  }
+
   async findByTeacherIdAndDate(
     teacher_id: string,
     date: string,
