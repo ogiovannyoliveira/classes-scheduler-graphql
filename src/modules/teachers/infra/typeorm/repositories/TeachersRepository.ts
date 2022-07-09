@@ -31,6 +31,14 @@ class TeachersRepository implements ITeachersRepository {
 
     return teachers;
   }
+
+  async findByEmail(email: string): Promise<Teacher> {
+    const teacher = this.repository.findOne({
+      where: { email },
+    });
+
+    return teacher;
+  }
 }
 
 export { TeachersRepository };

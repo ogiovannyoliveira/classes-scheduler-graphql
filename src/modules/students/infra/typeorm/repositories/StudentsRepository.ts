@@ -31,6 +31,14 @@ class StudentsRepository implements IStudentsRepository {
 
     return createdStudent;
   }
+
+  async findByEmail(email: string): Promise<Student> {
+    const student = this.repository.findOne({
+      where: { email },
+    });
+
+    return student;
+  }
 }
 
 export { StudentsRepository };

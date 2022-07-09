@@ -5,6 +5,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 
+import { AuthModule } from '~shared/modules/auth/Auth.module';
+
 import { AppointmentsModule } from '~modules/appointments/Appointments.module';
 import { ClassesModule } from '~modules/classes/Classes.module';
 import { createClassesLoader } from '~modules/classes/infra/graphql/dataloaders/Classes.loader';
@@ -44,6 +46,8 @@ import databaseConfig from './shared/infra/typeorm';
     LevelsModule,
     AppointmentsModule,
     SchedulesModule,
+    // auth modules
+    AuthModule,
   ],
 })
 export class AppModule {}

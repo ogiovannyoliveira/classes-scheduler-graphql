@@ -15,6 +15,16 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type AuthInterface {
+  id: String!
+  user_id: String!
+  social_id: String
+  provider: String!
+  permission: String!
+  created_at: DateTime!
+  updated_at: DateTime
+}
+
 type ClassInterface {
   id: String!
   minimum_level_id: String!
@@ -113,6 +123,7 @@ type Mutation {
   createClass(input: CreateClassInput!): ClassInterface!
   createAppointment(input: CreateAppointmentInput!): AppointmentInterface!
   createSchedule(input: CreateScheduleInput!): ScheduleInterface!
+  login(input: LoginInput!): AuthInterface!
 }
 
 input CreateClassInput {
@@ -134,4 +145,10 @@ input CreateScheduleInput {
   appointment_id: String!
   class_id: String!
   student_id: String!
+}
+
+input LoginInput {
+  provider: String = "LOCAL"
+  email: String!
+  password: String!
 }

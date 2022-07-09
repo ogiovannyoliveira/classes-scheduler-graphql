@@ -10,6 +10,10 @@ class DayjsFake implements IDateManipulation {
   diffInDays(firstDate: Date, secondDate: Date): number {
     return dayjs(firstDate).diff(secondDate, 'day');
   }
+
+  addHours(hours: number, guestDate?: Date): Date {
+    return dayjs(guestDate).add(hours, 'hours').toDate();
+  }
 }
 
 export { DayjsFake };

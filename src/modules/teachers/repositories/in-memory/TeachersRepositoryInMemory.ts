@@ -45,6 +45,12 @@ class TeachersRepositoryInMemory implements ITeachersRepository {
 
     return teachers;
   }
+
+  async findByEmail(email: string): Promise<Teacher> {
+    const teacher = this.teachers.find((teacher) => teacher.email === email);
+
+    return teacher;
+  }
 }
 
 export { TeachersRepositoryInMemory };

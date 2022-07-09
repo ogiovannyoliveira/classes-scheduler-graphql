@@ -32,6 +32,22 @@ COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UU
 
 SET default_table_access_method = heap;
 
+CREATE SCHEMA [IF NOT EXISTS] auth;
+
+--
+-- Name: auth; Type: TABLE; Schema: auth; Owner: -
+--
+
+CREATE TABLE auth.auth (
+  id uuid DEFAULT public.uuid_generate_v4() NOT NULL PRIMARY KEY,
+  user_id varchar NOT NULL,
+  social_id varchar NOT NULL,
+  provider varchar(60) NOT NULL,
+  permission varchar(60) NOT NULL,
+  created_at timestamp with time zone DEFAULT now() NOT NULL,
+  updated_at timestamp with time zone
+);
+
 --
 -- Name: teachers; Type: TABLE; Schema: public; Owner: -
 --

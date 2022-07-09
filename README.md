@@ -73,6 +73,6 @@ I intend to make just the backend, but I'm opened to work together with whoever 
   |  05   | 11 | The period of time cannot be greater than 30 days | ✅ |
 </details>
 
-## To the future :rocket:
-  - Add authentication and authorization;
+## To the future (extra features) :rocket:
+  - Add authentication and authorization; [⏳]
   - See the available classes and how many people are in the appointment in real-time.
