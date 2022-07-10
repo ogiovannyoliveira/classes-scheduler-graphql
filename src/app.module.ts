@@ -13,6 +13,7 @@ import { createClassesLoader } from '~modules/classes/infra/graphql/dataloaders/
 import { FindClassesByIdsUseCase } from '~modules/classes/useCases/findClassesByIdsUseCase/FindClassesByIdsUseCase.useCase';
 import { LevelsModule } from '~modules/levels/Levels.module';
 import { SchedulesModule } from '~modules/schedules/Schedules.module';
+import { StudentsModule } from '~modules/students/Students.module';
 import { createTeachersLoader } from '~modules/teachers/infra/graphql/dataloaders/Teachers.dataloader';
 import { TeachersModule } from '~modules/teachers/Teachers.module';
 import { FindTeachersByIdsUseCase } from '~modules/teachers/useCases/findTeachersByIds/FindTeachersByIds.useCase';
@@ -40,14 +41,15 @@ import databaseConfig from './shared/infra/typeorm';
         }),
       }),
     }),
+    // auth modules
+    AuthModule,
     // domain modules
     TeachersModule,
+    StudentsModule,
     ClassesModule,
     LevelsModule,
     AppointmentsModule,
     SchedulesModule,
-    // auth modules
-    AuthModule,
   ],
 })
 export class AppModule {}

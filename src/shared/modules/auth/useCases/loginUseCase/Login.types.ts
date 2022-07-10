@@ -2,6 +2,7 @@ import { AuthPermissions, AuthProviders } from '../../infra/abstracts/Auth';
 
 type LoginType = {
   provider: AuthProviders;
+  social_id?: string;
   email: string;
   password: string;
 };

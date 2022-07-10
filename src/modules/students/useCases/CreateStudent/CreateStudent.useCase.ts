@@ -1,4 +1,5 @@
 import { Inject, NotFoundException } from '@nestjs/common';
+import { genSalt, genSaltSync, hashSync } from 'bcryptjs';
 
 import { ILevelsRepository } from '~modules/levels/repositories/ILevelsRepository';
 import { Student } from '~modules/students/infra/typeorm/entities/Student';
@@ -33,9 +34,13 @@ class CreateStudentUseCase {
       }
     }
 
+    const SALT = genSaltSync();
+    const encryptedPassword = hashSync(data.password, SALT);
+
     const student = await this.studentsRepository.create({
       ...data,
       level_id,
+      password: encryptedPassword,
     });
 
     return student;

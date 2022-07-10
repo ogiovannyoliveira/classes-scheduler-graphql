@@ -5,7 +5,7 @@ import { ILevelsRepository } from '~modules/levels/repositories/ILevelsRepositor
 
 import { Level } from '../entities/Level';
 
-class LevelsRepositories implements ILevelsRepository {
+class LevelsRepository implements ILevelsRepository {
   constructor(
     @InjectRepository(Level)
     private repository: Repository<Level>,
@@ -30,11 +30,11 @@ class LevelsRepositories implements ILevelsRepository {
     const level = await this.repository
       .createQueryBuilder('levels')
       .select('levels.*')
-      .where('levels.ordering = (SELECT MIN(ordering) FROM levels)')
+      .where('levels.ordering = (SELECT MIN(ordering) FROM public.levels)')
       .getOne();
 
     return level;
   }
 }
 
-export { LevelsRepositories };
+export { LevelsRepository };

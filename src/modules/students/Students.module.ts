@@ -1,15 +1,18 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { LevelsRepositories } from '~modules/levels/infra/typeorm/repositories/LevelsRepositories';
+import { Level } from '~modules/levels/infra/typeorm/entities/Level';
+import { LevelsRepository } from '~modules/levels/infra/typeorm/repositories/LevelsRepository';
 
+import { StudentsResolver } from './infra/graphql/resolvers/Students.resolver';
 import { Student } from './infra/typeorm/entities/Student';
 import { StudentsRepository } from './infra/typeorm/repositories/StudentsRepository';
 import { CreateStudentUseCase } from './useCases/CreateStudent/CreateStudent.useCase';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Student])],
+  imports: [TypeOrmModule.forFeature([Student, Level])],
   providers: [
+    StudentsResolver,
     CreateStudentUseCase,
     {
       provide: 'StudentsRepository',
@@ -18,8 +21,8 @@ import { CreateStudentUseCase } from './useCases/CreateStudent/CreateStudent.use
     },
     {
       provide: 'LevelsRepository',
-      inject: [LevelsRepositories],
-      useClass: LevelsRepositories,
+      inject: [LevelsRepository],
+      useClass: LevelsRepository,
     },
   ],
   exports: [],

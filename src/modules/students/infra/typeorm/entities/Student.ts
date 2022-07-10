@@ -3,12 +3,14 @@ import {
   CreateDateColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  Entity,
 } from 'typeorm';
 
 import { StudentAbstract } from '../../abstracts/Student';
 
+@Entity({ name: 'students' })
 class Student implements StudentAbstract {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()

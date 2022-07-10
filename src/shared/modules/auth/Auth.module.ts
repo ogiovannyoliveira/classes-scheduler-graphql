@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -20,13 +21,17 @@ import { LoginUseCase } from './useCases/loginUseCase/Login.useCase';
   imports: [
     TypeOrmModule.forFeature([Authentication, Student, Teacher]),
     PassportModule,
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: {
-        expiresIn: process.env.JWT_EXPIRATION_TIME,
-        algorithm: 'HS256',
-      },
-      verifyOptions: { ignoreExpiration: false, algorithms: ['HS256'] },
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        secret: config.get('JWT_SECRET'),
+        signOptions: {
+          expiresIn: config.get('JWT_EXPIRATION_TIME'),
+          algorithm: 'HS256',
+        },
+        verifyOptions: { ignoreExpiration: false, algorithms: ['HS256'] },
+      }),
     }),
     DateManipulationProviderModule,
   ],

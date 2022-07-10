@@ -32,7 +32,7 @@ class LoginUseCase {
 
   async execute(
     userType: AuthPermissions,
-    { email, password, provider }: LoginType,
+    { email, password, provider, social_id }: LoginType,
   ): Promise<CredentialType> {
     const DEFAULT_ERROR_MESSAGE = 'Invalid e-mail or password provided.';
 
@@ -42,13 +42,18 @@ class LoginUseCase {
       throw new BadRequestException(DEFAULT_ERROR_MESSAGE);
     }
 
-    const auth = await this.authRepository.findByUserIdAndProvider(
+    let auth = await this.authRepository.findByUserIdAndProvider(
       user.id,
       provider,
     );
 
     if (!auth) {
-      throw new BadRequestException(DEFAULT_ERROR_MESSAGE);
+      auth = await this.authRepository.create({
+        user_id: user.id,
+        provider,
+        permission: userType,
+        social_id,
+      });
     }
 
     const passwordIsCorrect = compareSync(password, user.password);
@@ -57,9 +62,17 @@ class LoginUseCase {
       throw new BadRequestException(DEFAULT_ERROR_MESSAGE);
     }
 
-    const token = this.jwtService.sign({
-      ...auth,
-    });
+    const token = this.jwtService.sign(
+      {
+        user_id: auth.user_id,
+        provider: auth.provider,
+        social_id: auth?.social_id || null,
+      },
+      {
+        subject: auth.id,
+      },
+    );
+
     const { JWT_EXPIRATION_IN_HOURS } = process.env;
 
     return {

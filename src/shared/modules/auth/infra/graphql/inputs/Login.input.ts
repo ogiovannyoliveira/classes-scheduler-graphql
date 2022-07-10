@@ -12,6 +12,9 @@ class LoginInput {
 
   @Field()
   password: string;
+
+  @Field({ nullable: true })
+  social_id?: string;
 }
 
 export { LoginInput };

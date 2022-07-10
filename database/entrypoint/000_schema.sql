@@ -32,7 +32,7 @@ COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UU
 
 SET default_table_access_method = heap;
 
-CREATE SCHEMA [IF NOT EXISTS] auth;
+CREATE SCHEMA IF NOT EXISTS auth;
 
 --
 -- Name: auth; Type: TABLE; Schema: auth; Owner: -
@@ -40,8 +40,8 @@ CREATE SCHEMA [IF NOT EXISTS] auth;
 
 CREATE TABLE auth.auth (
   id uuid DEFAULT public.uuid_generate_v4() NOT NULL PRIMARY KEY,
-  user_id varchar NOT NULL,
-  social_id varchar NOT NULL,
+  user_id uuid NOT NULL,
+  social_id uuid,
   provider varchar(60) NOT NULL,
   permission varchar(60) NOT NULL,
   created_at timestamp with time zone DEFAULT now() NOT NULL,
@@ -119,7 +119,7 @@ CREATE TABLE public.appointments (
   created_at timestamp with time zone DEFAULT now() NOT NULL,
   updated_at timestamp with time zone,
   CONSTRAINT fk_class FOREIGN KEY (class_id) REFERENCES public.classes (id),
-  CONSTRAINT fk_class FOREIGN KEY (responsible_id) REFERENCES public.teachers (id)
+  CONSTRAINT fk_teacher FOREIGN KEY (responsible_id) REFERENCES public.teachers (id)
 );
 
 --
@@ -138,3 +138,9 @@ CREATE TABLE public.schedules (
   CONSTRAINT fk_appointment FOREIGN KEY (appointment_id) REFERENCES public.appointments (id),
   CONSTRAINT fk_student FOREIGN KEY (student_id) REFERENCES public.students (id)
 );
+
+
+--
+-- Populating necessary tables
+--
+INSERT INTO public.levels VALUES (DEFAULT, 1, 'Basic', DEFAULT, DEFAULT);

@@ -15,14 +15,17 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type AuthInterface {
+type User {
   id: String!
-  user_id: String!
   social_id: String
   provider: String!
   permission: String!
-  created_at: DateTime!
-  updated_at: DateTime
+}
+
+type CredentialInterface {
+  user: User!
+  access_token: String!
+  expires_at: DateTime!
 }
 
 type ClassInterface {
@@ -121,9 +124,12 @@ input PaginationInput {
 
 type Mutation {
   createClass(input: CreateClassInput!): ClassInterface!
+  loginStudent(input: LoginInput!): CredentialInterface!
+  loginTeacher(input: LoginInput!): CredentialInterface!
+  loginAdmin(input: LoginInput!): CredentialInterface!
+  createStudent(input: CreateStudentInput!): StudentInterface!
   createAppointment(input: CreateAppointmentInput!): AppointmentInterface!
   createSchedule(input: CreateScheduleInput!): ScheduleInterface!
-  login(input: LoginInput!): AuthInterface!
 }
 
 input CreateClassInput {
@@ -132,6 +138,21 @@ input CreateClassInput {
   title: String!
   description: String
   link: String!
+}
+
+input LoginInput {
+  provider: String = "LOCAL"
+  email: String!
+  password: String!
+  social_id: String
+}
+
+input CreateStudentInput {
+  level_id: String!
+  name: String!
+  email: String!
+  phone: String!
+  password: String!
 }
 
 input CreateAppointmentInput {
@@ -145,10 +166,4 @@ input CreateScheduleInput {
   appointment_id: String!
   class_id: String!
   student_id: String!
-}
-
-input LoginInput {
-  provider: String = "LOCAL"
-  email: String!
-  password: String!
 }

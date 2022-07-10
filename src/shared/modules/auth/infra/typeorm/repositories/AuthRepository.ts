@@ -1,6 +1,7 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
+import { CreateAuthDTO } from '~shared/modules/auth/dtos/CreateAuth.dto';
 import { IAuthRepository } from '~shared/modules/auth/repositories/IAuthRepository';
 
 import { Authentication, AuthProviders } from '../entities/Auth';
@@ -10,6 +11,24 @@ class AuthRepository implements IAuthRepository {
     @InjectRepository(Authentication)
     private repository: Repository<Authentication>,
   ) {}
+
+  create({
+    user_id,
+    provider,
+    permission,
+    social_id,
+  }: CreateAuthDTO): Promise<Authentication> {
+    const auth = this.repository.create({
+      user_id,
+      provider,
+      permission,
+      social_id,
+    });
+
+    const createdAuth = this.repository.save(auth);
+
+    return createdAuth;
+  }
 
   async existsBySocialIdAndProvider(
     social_id: string,
@@ -26,7 +45,7 @@ class AuthRepository implements IAuthRepository {
     return exists;
   }
 
-  async findByUserIdAndProvider(
+  findByUserIdAndProvider(
     id: string,
     provider: AuthProviders,
   ): Promise<Authentication> {

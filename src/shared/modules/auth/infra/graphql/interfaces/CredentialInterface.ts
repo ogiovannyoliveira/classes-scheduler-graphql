@@ -6,7 +6,7 @@ import { AuthPermissions, AuthProviders } from '../../abstracts/Auth';
 @ObjectType()
 class User {
   @Field()
-  id: number;
+  id: string;
 
   @Field({ nullable: true })
   social_id?: string;

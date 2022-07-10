@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { Level } from '~modules/levels/infra/typeorm/entities/Level';
-import { LevelsRepositories } from '~modules/levels/infra/typeorm/repositories/LevelsRepositories';
+import { LevelsRepository } from '~modules/levels/infra/typeorm/repositories/LevelsRepository';
 
 import { ClassesResolver } from './infra/graphql/resolvers/Classes.resolver';
 import { Class } from './infra/typeorm/entities/Class';
@@ -23,8 +23,8 @@ import { FindClassesByIdsUseCase } from './useCases/findClassesByIdsUseCase/Find
     },
     {
       provide: 'LevelsRepository',
-      inject: [LevelsRepositories],
-      useClass: LevelsRepositories,
+      inject: [LevelsRepository],
+      useClass: LevelsRepository,
     },
   ],
   exports: [

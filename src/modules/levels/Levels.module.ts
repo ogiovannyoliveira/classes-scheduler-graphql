@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { LevelsResolver } from './infra/graphql/resolvers/Levels.resolver';
 import { Level } from './infra/typeorm/entities/Level';
-import { LevelsRepositories } from './infra/typeorm/repositories/LevelsRepositories';
+import { LevelsRepository } from './infra/typeorm/repositories/LevelsRepository';
 import { FindLevelByIdUseCase } from './useCases/findLevelById/FindLevelById.useCase';
 
 @Module({
@@ -13,8 +13,8 @@ import { FindLevelByIdUseCase } from './useCases/findLevelById/FindLevelById.use
     FindLevelByIdUseCase,
     {
       provide: 'LevelsRepository',
-      inject: [LevelsRepositories],
-      useClass: LevelsRepositories,
+      inject: [LevelsRepository],
+      useClass: LevelsRepository,
     },
   ],
 })
