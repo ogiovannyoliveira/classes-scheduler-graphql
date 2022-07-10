@@ -1,9 +1,16 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { CacheModule, Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
+import {
+  ClientProvider,
+  ClientsModule,
+  Transport,
+} from '@nestjs/microservices';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import * as redisStore from 'cache-manager-redis-store';
 import { join } from 'path';
+import type { RedisClientOptions } from 'redis';
 
 import { AuthModule } from '~shared/modules/auth/Auth.module';
 
@@ -24,6 +31,15 @@ import databaseConfig from './shared/infra/typeorm';
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot(databaseConfig),
+    CacheModule.registerAsync<RedisClientOptions>({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        store: redisStore,
+        url: `redis://${config.get('RDS_HOST')}:${config.get('RDS_PORT')}`,
+        // password: config.get('RDS_PASS'),
+      }),
+    }),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
       imports: [ClassesModule, TeachersModule],
