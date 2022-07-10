@@ -8,6 +8,6 @@ import { AppModule } from './app.module';
   const app = await NestFactory.create(AppModule);
 
   await app.listen(APP_PORT, () =>
-    console.log('🚀 Server is running on port %s! 🧑‍🚀', APP_PORT),
+    console.log('🚀 Server is running on port %s! 📡', APP_PORT),
   );
 })();
