@@ -40,6 +40,12 @@ class AuthRepositoryInMemory implements IAuthRepository {
     return exists;
   }
 
+  async findById(id: string): Promise<Authentication> {
+    const auth = this.authentications.find((auth) => auth.id === id);
+
+    return auth;
+  }
+
   async findByUserIdAndProvider(
     id: string,
     provider: AuthProviders,

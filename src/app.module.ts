@@ -38,6 +38,7 @@ import databaseConfig from './shared/infra/typeorm';
         store: redisStore,
         url: `redis://${config.get('RDS_HOST')}:${config.get('RDS_PORT')}`,
         // password: config.get('RDS_PASS'),
+        ttl: config.get('RDS_TTL'),
       }),
     }),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({

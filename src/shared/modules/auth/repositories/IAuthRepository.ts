@@ -7,6 +7,7 @@ interface IAuthRepository {
     social_id: string,
     provider: AuthProviders,
   ): Promise<boolean>;
+  findById(id: string): Promise<Authentication>;
   findByUserIdAndProvider(
     id: string,
     provider: AuthProviders,

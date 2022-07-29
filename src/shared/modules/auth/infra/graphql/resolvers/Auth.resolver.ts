@@ -1,13 +1,10 @@
-import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { randomUUID } from 'crypto';
 
-import { JwtAuthGuard } from '~shared/guards/JwtAuth.guard';
 import { LoginUseCase } from '~shared/modules/auth/useCases/loginUseCase/Login.useCase';
 
 import { AuthPermissions, AuthProviders } from '../../abstracts/Auth';
 import { LoginInput } from '../inputs/Login.input';
-import { AuthInterface } from '../interfaces/AuthInterface';
 import { CredentialInterface } from '../interfaces/CredentialInterface';
 
 @Resolver()
@@ -26,7 +23,6 @@ class AuthResolver {
     return loggedIn;
   }
 
-  @UseGuards(JwtAuthGuard)
   @Mutation(() => CredentialInterface)
   async loginTeacher(
     @Args('input') input: LoginInput,

@@ -45,6 +45,10 @@ class AuthRepository implements IAuthRepository {
     return exists;
   }
 
+  findById(id: string): Promise<Authentication> {
+    return this.repository.findOne({ where: { id } });
+  }
+
   findByUserIdAndProvider(
     id: string,
     provider: AuthProviders,
