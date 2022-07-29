@@ -1,3 +1,4 @@
+import { UseGuards } from '@nestjs/common';
 import {
   Args,
   Context,
@@ -9,20 +10,22 @@ import {
 } from '@nestjs/graphql';
 import * as DataLoader from 'dataloader';
 import { ValidatorPaginationParamsPipe } from 'src/shared/http/pipes/ValidatorPaginationParams.pipe';
-import { v4 as uuid } from 'uuid';
 
 import {
   PaginationInput,
   PaginationOutput,
 } from '~shared//http/pipes/PaginationInput';
+import { Roles } from '~shared/decorators/Roles.decorator';
+import { JwtAuthGuard } from '~shared/guards/JwtAuth.guard';
+import { RolesGuard } from '~shared/guards/Roles.guard';
 import { ValidatorAmericanDateFormatParamPipe } from '~shared/http/pipes/ValidatorAmericanDateFormatParam.pipe';
+import { AuthPermissions } from '~shared/modules/auth/infra/abstracts/Auth';
 
 import { CreateAppointmentUseCase } from '~modules/appointments/useCases/createAppointment/CreateAppointment.useCase';
 import { FindAppointmentsByTeacherIdAndPeriodUseCase } from '~modules/appointments/useCases/findAppointmentsByTeacherAndPeriod/FindAppointmentsByTeacherAndPeriod.useCase';
 import { FindAppointmentsByTeacherIdAndDateUseCase } from '~modules/appointments/useCases/findAppointmentsByTeacherIdAndDate/FindAppointmentsByTeacherIdAndDate.useCase';
 import { ClassInterface } from '~modules/classes/infra/graphql/interfaces/ClassInterface';
 import { Class } from '~modules/classes/infra/typeorm/entities/Class';
-import { FindClassesByIdsUseCase } from '~modules/classes/useCases/findClassesByIdsUseCase/FindClassesByIdsUseCase.useCase';
 import { TeacherInterface } from '~modules/teachers/infra/graphql/interfaces/TeacherInterface';
 
 import { CreateAppointmentInput } from '../inputs/CreateAppointment.input';
@@ -35,9 +38,11 @@ class AppointmentsResolver {
     private createAppointmentUseCase: CreateAppointmentUseCase,
     private findAppointmentsByTeacherIdAndDateUseCase: FindAppointmentsByTeacherIdAndDateUseCase,
     private findAppointmentsByTeacherIdAndPeriodUseCase: FindAppointmentsByTeacherIdAndPeriodUseCase,
-    private findClasses: FindClassesByIdsUseCase,
   ) {}
 
+  @Roles(AuthPermissions.ADMIN, AuthPermissions.TEACHER)
+  @UseGuards(RolesGuard)
+  @UseGuards(JwtAuthGuard)
   @Mutation(() => AppointmentInterface)
   async createAppointment(
     @Args('input') input: CreateAppointmentInput,
@@ -47,6 +52,7 @@ class AppointmentsResolver {
     return appointment;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Query(() => AppointmentAndTotalInterface)
   async getAppointmentsByTeacherIdAndDate(
     @Args('teacher_id') teacher_id: string,
@@ -71,6 +77,7 @@ class AppointmentsResolver {
     return appointments;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Query(() => [AppointmentInterface])
   async getAppointmentsByTeacherIdAndPeriod(
     @Args('teacher_id') teacher_id: string,
@@ -100,27 +107,9 @@ class AppointmentsResolver {
     @Parent() appointment: AppointmentInterface,
     @Context('ClassesLoader') classesLoader: DataLoader<string, Class>,
   ): Promise<Class> {
-    // METHOD 1
     const classes = await classesLoader.load(appointment.class_id);
 
     return classes;
-
-    // METHOD 2
-    // const classes = await this.findClasses.execute([appointment.class_id]);
-
-    // return classes[0];
-
-    // METHOD 3
-    // return {
-    //   id: uuid(),
-    //   minimum_level_id: uuid(),
-    //   teacher_id: uuid(),
-    //   title: '',
-    //   description: '',
-    //   link: '',
-    //   created_at: new Date(),
-    //   updated_at: new Date(),
-    // };
   }
 
   @ResolveField('responsible', () => TeacherInterface)
