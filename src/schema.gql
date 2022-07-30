@@ -167,3 +167,7 @@ input CreateScheduleInput {
   class_id: String!
   student_id: String!
 }
+
+type Subscription {
+  appointmentAdded: [AppointmentInterface!]!
+}

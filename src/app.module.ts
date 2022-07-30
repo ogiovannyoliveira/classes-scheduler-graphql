@@ -51,6 +51,10 @@ import databaseConfig from './shared/infra/typeorm';
       ) => ({
         playground: process.env.SHOW_PLAYGROUND === 'true',
         autoSchemaFile: join(process.cwd(), 'src', 'schema.gql'),
+        installSubscriptionHandlers: true,
+        subscriptions: {
+          'subscriptions-transport-ws': true,
+        },
         context: (): any => ({
           RandomValue: Math.random(),
           ClassesLoader: createClassesLoader(classesLoader),

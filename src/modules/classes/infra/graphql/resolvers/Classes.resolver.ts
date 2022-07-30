@@ -15,9 +15,9 @@ import { ClassInterface } from '../interfaces/ClassInterface';
 class ClassesResolver {
   constructor(private createClassUseCase: CreateClassUseCase) {}
 
-  @Roles(AuthPermissions.TEACHER)
-  @UseGuards(RolesGuard)
-  @UseGuards(JwtAuthGuard)
+  // @Roles(AuthPermissions.TEACHER)
+  // @UseGuards(RolesGuard)
+  // @UseGuards(JwtAuthGuard)
   @Mutation(() => ClassInterface)
   async createClass(
     @Args('input') input: CreateClassInput,

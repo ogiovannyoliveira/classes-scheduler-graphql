@@ -63,11 +63,10 @@ I intend to make just the backend, but I'm opened to work together with whoever 
   |  02   | 02 | An Appointment must have an start and finish times | ✅ |
   |  02   | 03 | The start time must be before than the finish one | ✅ |
   |  02   | 03 | A Teacher must select a valid class to create an appointment to it  | ✅ |
-  |  02   | 04 | An Appointment can be created only by a Teacher | |
+  |  02   | 04 | An Appointment can be created only by a Teacher or Admin | ✅ |
   |  03   | 05 | A message must be shown saying that the period was already chosen | ✅ |
   |  03   | 06 | A new time can be suggested when the Teacher choose an used period | |
   |  04   | 07 | A date in american format (year-month-day) must be passed | ✅ |
-  |  05   | 08 | A initial and final dates in american format (year-month-day) must be passed and return grouped by day | |
   |  09   | 09 | A message must be shown saying that the Student cannot select two classes at the same period and which was chosen before | ✅ |
   |  12   | 10 | A responsible can be the teacher itself or another one | ✅ |
   |  05   | 11 | The period of time cannot be greater than 30 days | ✅ |
@@ -75,4 +74,4 @@ I intend to make just the backend, but I'm opened to work together with whoever 
 
 ## To the future (extra features) :rocket:
   - Add authentication and authorization; ✅
-  - See the available classes and how many people are in the appointment in real-time.
+  - See the available appointments and how many people scheduled them in real-time. [⏳]

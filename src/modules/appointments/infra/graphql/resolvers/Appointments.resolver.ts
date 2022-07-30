@@ -7,8 +7,10 @@ import {
   Query,
   ResolveField,
   Resolver,
+  Subscription,
 } from '@nestjs/graphql';
 import * as DataLoader from 'dataloader';
+import { PubSub } from 'graphql-subscriptions';
 import { ValidatorPaginationParamsPipe } from 'src/shared/http/pipes/ValidatorPaginationParams.pipe';
 
 import {
@@ -32,6 +34,8 @@ import { CreateAppointmentInput } from '../inputs/CreateAppointment.input';
 import { AppointmentAndTotalInterface } from '../interfaces/AppointmentAndTotalInterface';
 import { AppointmentInterface } from '../interfaces/AppointmentInterface';
 
+const pubSub = new PubSub();
+
 @Resolver(() => AppointmentInterface)
 class AppointmentsResolver {
   constructor(
@@ -48,6 +52,8 @@ class AppointmentsResolver {
     @Args('input') input: CreateAppointmentInput,
   ): Promise<AppointmentInterface> {
     const appointment = await this.createAppointmentUseCase.execute(input);
+
+    pubSub.publish('appointmentAdded', { appointmentAdded: appointment });
 
     return appointment;
   }
@@ -121,6 +127,12 @@ class AppointmentsResolver {
     const teachers = await teachersLoader.load(appointment.responsible_id);
 
     return teachers;
+  }
+
+  @Subscription(() => [AppointmentInterface])
+  // add subscription filter
+  appointmentAdded(): AsyncIterator<AppointmentInterface> {
+    return pubSub.asyncIterator('appointmentAdded');
   }
 }
 
